@@ -725,9 +725,110 @@
         grid-column: 2; text-align: left; order: -1; padding-top: 0; padding-bottom: 4px;
       }
     }
+    /* ─── PASSWORD GATE ──────────────────────────────────────── */
+    #password-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--parchment);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    #password-gate.hidden { display: none; }
+    .gate-card {
+      text-align: center;
+      max-width: 380px;
+      width: 100%;
+      border: 1px solid rgba(45, 74, 62, .22);
+      padding: 48px 40px 44px;
+      background: rgba(253, 250, 245, .7);
+      backdrop-filter: blur(4px);
+      position: relative;
+    }
+    .gate-card::before,
+    .gate-card::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: var(--pine);
+      border-style: solid;
+    }
+    .gate-card::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+    .gate-card::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+    .gate-monogram {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--pine);
+      margin-bottom: 6px;
+    }
+    .gate-subtitle {
+      font-family: var(--font-body);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--pine-muted);
+      margin-bottom: 32px;
+    }
+    .gate-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: .85rem;
+      letter-spacing: .08em;
+      color: var(--bark);
+      background: var(--snow);
+      border: 1px solid var(--parchment-dk);
+      border-radius: var(--radius);
+      outline: none;
+      text-align: center;
+      transition: border-color .2s;
+      margin-bottom: 14px;
+    }
+    .gate-input:focus { border-color: var(--pine-muted); }
+    .gate-input.error { border-color: #b5746a; }
+    .gate-btn {
+      width: 100%;
+      padding: 13px 0;
+      font-family: var(--font-body);
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--snow);
+      background: var(--pine);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .gate-btn:hover { background: var(--bark); transform: translateY(-1px); }
+    .gate-error {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: .88rem;
+      color: #b5746a;
+      margin-top: 12px;
+      min-height: 1.2em;
+    }
   </style>
 </head>
 <body>
+
+<!-- ═══ PASSWORD GATE ════════════════════════════════════════ -->
+<div id="password-gate">
+  <div class="gate-card">
+    <p class="gate-monogram">P &amp; M</p>
+    <p class="gate-subtitle">June 19, 2027</p>
+    <input class="gate-input" id="gate-input" type="password" placeholder="Enter password" autocomplete="off" />
+    <button class="gate-btn" id="gate-btn">Enter</button>
+    <p class="gate-error" id="gate-error"></p>
+  </div>
+</div>
 
 <!-- ═══ NAV ══════════════════════════════════════════════════ -->
 <nav>
@@ -1059,6 +1160,32 @@
 
 <!-- ═══ SCRIPT ════════════════════════════════════════════════ -->
 <script>
+  // ─── Password gate ───────────────────────────────────────────
+  const SITE_PASSWORD = 'Memchu';
+  const gate = document.getElementById('password-gate');
+  const gateInput = document.getElementById('gate-input');
+  const gateBtn = document.getElementById('gate-btn');
+  const gateError = document.getElementById('gate-error');
+
+  if (sessionStorage.getItem('unlocked') === '1') {
+    gate.classList.add('hidden');
+  }
+
+  function tryUnlock() {
+    if (gateInput.value === SITE_PASSWORD) {
+      sessionStorage.setItem('unlocked', '1');
+      gate.classList.add('hidden');
+    } else {
+      gateInput.classList.add('error');
+      gateError.textContent = 'Incorrect password — try again.';
+      gateInput.value = '';
+      setTimeout(() => gateInput.classList.remove('error'), 600);
+    }
+  }
+
+  gateBtn.addEventListener('click', tryUnlock);
+  gateInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
+
   // Update the time below to match your actual ceremony start time
   const WEDDING_DATE = new Date('2027-06-19T15:30:00');
 
