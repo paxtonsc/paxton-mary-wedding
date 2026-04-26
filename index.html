@@ -171,16 +171,6 @@
       font-size: .85rem;
     }
 
-    /* Mountain silhouette strip */
-    .mountain-strip {
-      width: 100%;
-      display: block;
-      color: var(--pine);
-      opacity: .15;
-      line-height: 0;
-    }
-    .mountain-strip svg { width: 100%; height: auto; display: block; }
-
     .section-label {
       font-family: var(--font-body);
       font-size: .62rem;
@@ -227,12 +217,13 @@
 
     .hero-frame {
       border: 1px solid rgba(45, 74, 62, .22);
-      padding: 56px 48px 48px;
+      padding: 0;
       max-width: 640px;
       width: 100%;
       position: relative;
       background: rgba(253, 250, 245, .52);
       backdrop-filter: blur(4px);
+      overflow: hidden;
     }
     /* Corner ticks */
     .hero-frame::before,
@@ -243,9 +234,21 @@
       height: 22px;
       border-color: var(--pine);
       border-style: solid;
+      z-index: 2;
     }
     .hero-frame::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
     .hero-frame::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+    .hero-photo {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-text {
+      padding: 36px 48px 40px;
+    }
 
     .hero-pre {
       font-family: var(--font-body);
@@ -292,16 +295,6 @@
       color: var(--pine-muted);
     }
 
-    .hero-message {
-      font-family: var(--font-serif);
-      font-size: 1.05rem;
-      font-style: italic;
-      color: var(--bark-light);
-      max-width: 420px;
-      margin: 0 auto 32px;
-      line-height: 1.75;
-    }
-
     /* Countdown */
     .countdown {
       display: flex;
@@ -338,90 +331,6 @@
       color: var(--amber-light);
       align-self: flex-start;
       padding-top: 4px;
-      font-weight: 300;
-    }
-
-    /* ─── PHOTO PLACEHOLDER ──────────────────────────────────── */
-    .photo-band {
-      background: rgba(45, 74, 62, .05);
-      padding: 48px 24px 60px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-    .photo-label {
-      font-family: var(--font-body);
-      font-size: .62rem;
-      font-weight: 600;
-      letter-spacing: .32em;
-      text-transform: uppercase;
-      color: var(--pine-muted);
-    }
-    .photo-placeholder {
-      width: 100%;
-      max-width: 680px;
-      aspect-ratio: 3 / 2;
-      border: 1px dashed rgba(45, 74, 62, .3);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(45, 74, 62, .03);
-    }
-    /* Corner tick marks on photo frame */
-    .photo-placeholder::before,
-    .photo-placeholder::after {
-      content: '';
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      border-color: var(--pine);
-      border-style: solid;
-      opacity: .35;
-    }
-    .photo-placeholder::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
-    .photo-placeholder::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
-
-    /* When a real <img> is placed inside, it fills the frame */
-    .photo-placeholder img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .photo-inner {
-      text-align: center;
-      padding: 24px;
-      pointer-events: none;
-    }
-    .photo-inner .photo-icon {
-      font-size: 2.4rem;
-      display: block;
-      margin-bottom: 14px;
-      opacity: .35;
-    }
-    .photo-inner .photo-title {
-      font-family: var(--font-body);
-      font-size: .68rem;
-      font-weight: 600;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--pine);
-      opacity: .5;
-    }
-    .photo-inner .photo-hint {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: .88rem;
-      color: var(--bark-light);
-      opacity: .55;
-      margin-top: 6px;
-      letter-spacing: 0;
-      text-transform: none;
       font-weight: 300;
     }
 
@@ -715,7 +624,7 @@
 
     /* ─── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 600px) {
-      .hero-frame { padding: 40px 28px 36px; }
+      .hero-text { padding: 28px 24px 32px; }
       .nav-monogram { display: none; }
       .nav-links { gap: 22px; }
 
@@ -759,56 +668,40 @@
 
   <section class="hero">
     <div class="hero-frame">
-      <p class="hero-pre">We're getting married</p>
+      <img class="hero-photo" src="images/paxton_and_mary.jpeg" alt="Paxton and Mary">
+      <div class="hero-text">
+        <p class="hero-pre">We're getting married</p>
 
-      <h1 class="hero-names">
-        Paxton
-        <span class="hero-amp">&amp;</span>
-        Mary
-      </h1>
+        <h1 class="hero-names">
+          Paxton
+          <span class="hero-amp">&amp;</span>
+          Mary
+        </h1>
 
-      <div class="divider" style="margin: 28px auto;">
-        <span class="divider-icon">✦</span>
-      </div>
+        <div class="divider" style="margin: 24px auto;">
+          <span class="divider-icon">✦</span>
+        </div>
 
-      <p class="hero-date">June 19, 2027</p>
-      <p class="hero-venue">Memorial Church &nbsp;·&nbsp; Stanford, CA</p>
+        <p class="hero-date">June 19, 2027</p>
+        <p class="hero-venue">Memorial Church &nbsp;·&nbsp; Stanford, CA</p>
 
-      <div class="divider" style="margin: 28px auto;">
-        <span class="divider-icon">✦</span>
-      </div>
+        <div class="divider" style="margin: 24px auto;">
+          <span class="divider-icon">✦</span>
+        </div>
 
-      <p class="hero-message">
-        [PERSONAL_MESSAGE — e.g. "We are so thrilled to celebrate this day with the people we love most. Thank you for being part of our story."]
-      </p>
-
-      <!-- Countdown -->
-      <div class="countdown" id="countdown">
-        <div class="cd-unit"><span class="cd-num" id="cd-days">—</span><span class="cd-label">Days</span></div>
-        <span class="cd-sep">·</span>
-        <div class="cd-unit"><span class="cd-num" id="cd-hours">—</span><span class="cd-label">Hours</span></div>
-        <span class="cd-sep">·</span>
-        <div class="cd-unit"><span class="cd-num" id="cd-mins">—</span><span class="cd-label">Minutes</span></div>
-        <span class="cd-sep">·</span>
-        <div class="cd-unit"><span class="cd-num" id="cd-secs">—</span><span class="cd-label">Seconds</span></div>
+        <!-- Countdown -->
+        <div class="countdown" id="countdown">
+          <div class="cd-unit"><span class="cd-num" id="cd-days">—</span><span class="cd-label">Days</span></div>
+          <span class="cd-sep">·</span>
+          <div class="cd-unit"><span class="cd-num" id="cd-hours">—</span><span class="cd-label">Hours</span></div>
+          <span class="cd-sep">·</span>
+          <div class="cd-unit"><span class="cd-num" id="cd-mins">—</span><span class="cd-label">Minutes</span></div>
+          <span class="cd-sep">·</span>
+          <div class="cd-unit"><span class="cd-num" id="cd-secs">—</span><span class="cd-label">Seconds</span></div>
+        </div>
       </div>
     </div>
   </section>
-
-  <!-- Mountain silhouette transition into photo band -->
-  <div class="mountain-strip">
-    <svg viewBox="0 0 1200 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" fill="currentColor">
-      <path d="M0,90 L0,60 L80,38 L140,52 L210,22 L270,42 L340,10 L400,35 L460,18 L530,48 L590,28 L650,44 L720,8 L790,36 L850,20 L920,50 L980,30 L1050,55 L1110,25 L1160,45 L1200,32 L1200,90 Z"/>
-    </svg>
-  </div>
-
-  <!-- Photo placeholder -->
-  <div class="photo-band">
-    <p class="photo-label">Paxton &amp; Mary</p>
-    <div class="photo-placeholder">
-      <img src="images/paxton_and_mary.jpeg" alt="Paxton and Mary">
-    </div>
-  </div>
 
 </div>
 
