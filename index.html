@@ -609,6 +609,85 @@
       color: var(--pine-muted);
     }
 
+    /* ─── THINGS TO DO TAB ───────────────────────────────────── */
+    .todo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      padding-bottom: 100px;
+    }
+
+    .todo-category h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 300;
+      color: var(--bark);
+      margin-bottom: 6px;
+    }
+    .todo-category .sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: .95rem;
+      color: var(--bark-light);
+      margin-bottom: 24px;
+    }
+
+    .todo-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .todo-card {
+      background: var(--snow);
+      border: 1px solid var(--parchment-dk);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .todo-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(45,74,62,.09);
+    }
+    .todo-card-tag {
+      font-family: var(--font-body);
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--pine-muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .todo-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--bark);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+    .todo-card p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: .9rem;
+      color: var(--bark-light);
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+    .todo-card a {
+      display: inline-block;
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      border-bottom: 1px solid var(--amber-light);
+      padding-bottom: 1px;
+      transition: color .2s, border-color .2s;
+    }
+    .todo-card a:hover { color: var(--pine); border-color: var(--pine-muted); }
+
     /* ─── FOOTER ─────────────────────────────────────────────── */
     footer {
       text-align: center;
@@ -658,6 +737,7 @@
       <li><a href="#" onclick="showTab('home')"     id="nav-home"     class="active">Home</a></li>
       <li><a href="#" onclick="showTab('schedule')" id="nav-schedule">Schedule</a></li>
       <li><a href="#" onclick="showTab('travel')"   id="nav-travel">Travel</a></li>
+      <li><a href="#" onclick="showTab('todo')"     id="nav-todo">Things To Do</a></li>
       <li><a href="#" onclick="showTab('registry')" id="nav-registry">Registry</a></li>
     </ul>
   </div>
@@ -718,42 +798,42 @@
 
       <div class="tl-item">
         <div class="tl-content">
+          <h3>Family Dinner</h3>
+          <p class="tl-location">[THURSDAY_DINNER_LOCATION]</p>
+          <p>[THURSDAY_DINNER_DESCRIPTION — e.g. "An intimate dinner for family to gather the night before the festivities begin."]</p>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-time">Thursday · [THURSDAY_DINNER_TIME]</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-content">
+          <h3>Friends Dinner</h3>
+          <p class="tl-location">[FRIDAY_DINNER_LOCATION]</p>
+          <p>[FRIDAY_DINNER_DESCRIPTION — e.g. "Join our closest friends for a relaxed dinner the night before the wedding."]</p>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-time">Friday · [FRIDAY_DINNER_TIME]</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-content">
           <h3>Ceremony</h3>
           <p class="tl-location">Memorial Church, Stanford</p>
           <p>[CEREMONY_DESCRIPTION — e.g. "Please be seated by 15 minutes prior. The ceremony will begin promptly."]</p>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-time">[CEREMONY_TIME]</div>
+        <div class="tl-time">Saturday · 3:30 PM</div>
       </div>
 
       <div class="tl-item">
         <div class="tl-content">
-          <h3>Cocktail Hour</h3>
-          <p class="tl-location">[COCKTAIL_LOCATION]</p>
-          <p>[COCKTAIL_DESCRIPTION — e.g. "Join us for drinks and hors d'oeuvres while we take photos with our wedding party."]</p>
+          <h3>Reception</h3>
+          <p class="tl-location">Faculty Club, Stanford</p>
+          <p>[RECEPTION_DESCRIPTION — e.g. "Dinner, toasts, and dancing to celebrate with everyone we love."]</p>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-time">[COCKTAIL_TIME]</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-content">
-          <h3>Reception Dinner</h3>
-          <p class="tl-location">[RECEPTION_LOCATION]</p>
-          <p>[RECEPTION_DESCRIPTION — e.g. "Dinner will be served followed by toasts and the first dance."]</p>
-        </div>
-        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-time">[RECEPTION_TIME]</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-content">
-          <h3>Dancing</h3>
-          <p class="tl-location">[DANCING_LOCATION]</p>
-          <p>[DANCING_DESCRIPTION — e.g. "Hit the dance floor and celebrate with us all night long!"]</p>
-        </div>
-        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-time">[DANCING_TIME]</div>
+        <div class="tl-time">Saturday · 4:30 PM</div>
       </div>
 
       <div class="tl-item">
@@ -763,7 +843,17 @@
           <p>[SENDOFF_DESCRIPTION — e.g. "Help us make a memorable exit! Details to follow."]</p>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-time">[SENDOFF_TIME]</div>
+        <div class="tl-time">Saturday · [SENDOFF_TIME]</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-content">
+          <h3>Farewell Brunch</h3>
+          <p class="tl-location">[BRUNCH_LOCATION]</p>
+          <p>[BRUNCH_DESCRIPTION — e.g. "Come join us one last time before heading home. A relaxed morning to say goodbye."]</p>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-time">Sunday · 10:00 – 12:00 PM</div>
       </div>
 
     </div>
@@ -840,6 +930,108 @@
   </div>
 </div>
 
+<!-- ═══ THINGS TO DO ═════════════════════════════════════════ -->
+<div id="pane-todo" class="pane">
+  <div class="page-header">
+    <span class="section-label">Explore the Area</span>
+    <h1>Things To Do</h1>
+    <p>Stanford &amp; the Bay Area</p>
+  </div>
+
+  <div class="content-wrap">
+    <div class="todo-grid">
+
+      <div class="todo-category">
+        <h2>Outdoors</h2>
+        <p class="sub">Parks, trails, and scenic spots near Stanford.</p>
+        <div class="todo-cards">
+
+          <div class="todo-card">
+            <span class="todo-card-tag">Hiking</span>
+            <h3>[OUTDOOR_ACTIVITY_1_NAME]</h3>
+            <p>[OUTDOOR_ACTIVITY_1_DESCRIPTION — e.g. "A beautiful loop through redwoods with views of the Bay."]</p>
+            <a href="[OUTDOOR_ACTIVITY_1_URL]" target="_blank" rel="noopener">Learn More →</a>
+          </div>
+
+          <div class="todo-card">
+            <span class="todo-card-tag">Nature</span>
+            <h3>[OUTDOOR_ACTIVITY_2_NAME]</h3>
+            <p>[OUTDOOR_ACTIVITY_2_DESCRIPTION]</p>
+            <a href="[OUTDOOR_ACTIVITY_2_URL]" target="_blank" rel="noopener">Learn More →</a>
+          </div>
+
+          <div class="todo-card">
+            <span class="todo-card-tag">Scenic</span>
+            <h3>[OUTDOOR_ACTIVITY_3_NAME]</h3>
+            <p>[OUTDOOR_ACTIVITY_3_DESCRIPTION]</p>
+            <a href="[OUTDOOR_ACTIVITY_3_URL]" target="_blank" rel="noopener">Learn More →</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="todo-category">
+        <h2>Food &amp; Drink</h2>
+        <p class="sub">Our favorite spots to eat and drink in the area.</p>
+        <div class="todo-cards">
+
+          <div class="todo-card">
+            <span class="todo-card-tag">Restaurant</span>
+            <h3>[RESTAURANT_1_NAME]</h3>
+            <p>[RESTAURANT_1_DESCRIPTION — e.g. "Our go-to for date night. Book ahead — it fills up fast."]</p>
+            <a href="[RESTAURANT_1_URL]" target="_blank" rel="noopener">Make a Reservation →</a>
+          </div>
+
+          <div class="todo-card">
+            <span class="todo-card-tag">Coffee</span>
+            <h3>[CAFE_1_NAME]</h3>
+            <p>[CAFE_1_DESCRIPTION]</p>
+            <a href="[CAFE_1_URL]" target="_blank" rel="noopener">Learn More →</a>
+          </div>
+
+          <div class="todo-card">
+            <span class="todo-card-tag">Drinks</span>
+            <h3>[BAR_1_NAME]</h3>
+            <p>[BAR_1_DESCRIPTION]</p>
+            <a href="[BAR_1_URL]" target="_blank" rel="noopener">Learn More →</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="todo-category">
+        <h2>Sights &amp; Culture</h2>
+        <p class="sub">Places worth seeing while you're here.</p>
+        <div class="todo-cards">
+
+          <div class="todo-card">
+            <span class="todo-card-tag">Museum</span>
+            <h3>[SIGHT_1_NAME]</h3>
+            <p>[SIGHT_1_DESCRIPTION — e.g. "World-class art collection right on the Stanford campus — free admission."]</p>
+            <a href="[SIGHT_1_URL]" target="_blank" rel="noopener">Learn More →</a>
+          </div>
+
+          <div class="todo-card">
+            <span class="todo-card-tag">Landmark</span>
+            <h3>[SIGHT_2_NAME]</h3>
+            <p>[SIGHT_2_DESCRIPTION]</p>
+            <a href="[SIGHT_2_URL]" target="_blank" rel="noopener">Learn More →</a>
+          </div>
+
+          <div class="todo-card">
+            <span class="todo-card-tag">Shopping</span>
+            <h3>[SIGHT_3_NAME]</h3>
+            <p>[SIGHT_3_DESCRIPTION]</p>
+            <a href="[SIGHT_3_URL]" target="_blank" rel="noopener">Learn More →</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- ═══ REGISTRY ══════════════════════════════════════════════ -->
 <div id="pane-registry" class="pane">
   <div class="registry-wrap">
@@ -868,7 +1060,7 @@
 <!-- ═══ SCRIPT ════════════════════════════════════════════════ -->
 <script>
   // Update the time below to match your actual ceremony start time
-  const WEDDING_DATE = new Date('2027-06-19T16:00:00');
+  const WEDDING_DATE = new Date('2027-06-19T15:30:00');
 
   function showTab(tab) {
     document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
