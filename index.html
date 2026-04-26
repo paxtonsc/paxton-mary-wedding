@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>[PARTNER_1_NAME] & [PARTNER_2_NAME] — [WEDDING_DATE]</title>
+  <title>Paxton & Mary — June 19, 2027</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+Upright:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -636,7 +636,7 @@
 <!-- ═══ NAV ══════════════════════════════════════════════════ -->
 <nav>
   <div class="nav-inner">
-    <span class="nav-monogram" onclick="showTab('home')">[P1_INITIAL] & [P2_INITIAL]</span>
+    <span class="nav-monogram" onclick="showTab('home')">P & M</span>
     <ul class="nav-links">
       <li><a href="#" onclick="showTab('home')"   id="nav-home"     class="active">Home</a></li>
       <li><a href="#" onclick="showTab('schedule')" id="nav-schedule">Schedule</a></li>
@@ -653,17 +653,17 @@
       <p class="hero-pre">We're getting married</p>
 
       <h1 class="hero-names">
-        [PARTNER_1_NAME]
+        Paxton
         <span class="hero-amp">&amp;</span>
-        [PARTNER_2_NAME]
+        Mary
       </h1>
 
       <div class="divider hero-divider">
         <span class="divider-icon">✦</span>
       </div>
 
-      <p class="hero-date">[WEDDING_DATE]</p>
-      <p class="hero-venue">[VENUE_NAME] &nbsp;·&nbsp; [VENUE_CITY]</p>
+      <p class="hero-date">June 19, 2027</p>
+      <p class="hero-venue">Memorial Church &nbsp;·&nbsp; Stanford, CA</p>
 
       <div class="divider" style="margin: 32px auto;">
         <span class="divider-icon">✦</span>
@@ -692,7 +692,7 @@
   <div class="page-header">
     <span class="section-label">The Wedding Day</span>
     <h1>Schedule</h1>
-    <p>[WEDDING_DATE] &nbsp;·&nbsp; [VENUE_CITY]</p>
+    <p>June 19, 2027 &nbsp;·&nbsp; Stanford, CA</p>
   </div>
 
   <div class="content-wrap">
@@ -701,7 +701,7 @@
       <div class="tl-item">
         <div class="tl-content">
           <h3>Ceremony</h3>
-          <p class="tl-location">[CEREMONY_LOCATION]</p>
+          <p class="tl-location">Memorial Church, Stanford</p>
           <p>[CEREMONY_DESCRIPTION — e.g. "Please be seated by 15 minutes prior. The ceremony will begin promptly."]</p>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
@@ -757,7 +757,7 @@
   <div class="page-header">
     <span class="section-label">Getting There</span>
     <h1>Travel</h1>
-    <p>[VENUE_CITY] &nbsp;·&nbsp; [WEDDING_DATE]</p>
+    <p>Stanford, CA &nbsp;·&nbsp; June 19, 2027</p>
   </div>
 
   <div class="content-wrap">
@@ -766,10 +766,10 @@
       <!-- Getting Here -->
       <div class="travel-section">
         <h2>Getting Here</h2>
-        <p class="sub">[VENUE_NAME]</p>
+        <p class="sub">Memorial Church</p>
         <div class="info-block">
           <p><strong>Address</strong></p>
-          <p>[VENUE_STREET_ADDRESS]<br>[VENUE_CITY], [VENUE_STATE] [VENUE_ZIP]</p>
+          <p>450 Jane Stanford Way<br>Stanford, CA 94305</p>
           <br>
           <p><strong>Parking</strong></p>
           <p>[PARKING_NOTES — e.g. "Complimentary valet parking is available at the main entrance. Self-parking is also available in the lot on [STREET_NAME]."]</p>
@@ -847,7 +847,7 @@
 
 <!-- ═══ FOOTER ════════════════════════════════════════════════ -->
 <footer>
-  [PARTNER_1_NAME] &amp; [PARTNER_2_NAME] &nbsp;·&nbsp; [WEDDING_DATE]
+  Paxton &amp; Mary &nbsp;·&nbsp; June 19, 2027
 </footer>
 
 <!-- ═══ SCRIPT ════════════════════════════════════════════════ -->
@@ -855,8 +855,8 @@
   // ─────────────────────────────────────────────────────────────
   // EDIT THIS: set your wedding date & time (local time at venue)
   // Format: 'YYYY-MM-DDTHH:MM:SS'
-  const WEDDING_DATE = new Date('[WEDDING_YEAR]-[WEDDING_MONTH_NUM]-[WEDDING_DAY_NUM]T[CEREMONY_TIME_24H]:00');
-  // Example: new Date('2026-09-12T16:00:00')
+  const WEDDING_DATE = new Date('2027-06-19T16:00:00');
+  // Update the time above to match your actual ceremony start time
   // ─────────────────────────────────────────────────────────────
 
   /* ── Tab switching ── */
