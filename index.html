@@ -1646,7 +1646,7 @@
 
     group.members.forEach(m => {
       const r = existingRsvps[m.guestId];
-      const typeLabel = m.type === 'child' ? 'Child' : '';
+      const typeLabel = '';
       let badgeClass, badgeText;
       if (!r) {
         badgeClass = 'pending'; badgeText = 'Pending';
@@ -1737,7 +1737,7 @@
         };
       }
 
-      const typeLabel = m.type === 'child' ? 'Child' : '';
+      const typeLabel = '';
       const displayName = m.unnamed ? 'Plus One' : `${m.firstName} ${m.lastName}`;
       const nameSlotOpen = m.unnamed && current === true;
       const savedFirst = m.unnamed ? (guestNames[m.guestId] || {}).first || '' : '';
