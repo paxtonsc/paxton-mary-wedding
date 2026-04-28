@@ -688,6 +688,259 @@
     }
     .todo-card a:hover { color: var(--pine); border-color: var(--pine-muted); }
 
+    /* ─── RSVP TAB ───────────────────────────────────────────── */
+    .rsvp-wrap {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 72px 24px 100px;
+    }
+    .rsvp-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .rsvp-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 300;
+      color: var(--bark);
+      margin-bottom: 10px;
+    }
+    .rsvp-header p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--bark-light);
+    }
+
+    .rsvp-card {
+      background: var(--snow);
+      border: 1px solid var(--parchment-dk);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+    }
+    @media (max-width: 600px) {
+      .rsvp-card { padding: 28px 22px; }
+    }
+
+    .rsvp-step { display: none; }
+    .rsvp-step.active { display: block; animation: fadeUp .35s ease both; }
+
+    .rsvp-field-group { margin-bottom: 22px; }
+    .rsvp-field-group label {
+      display: block;
+      font-family: var(--font-body);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--pine-muted);
+      margin-bottom: 8px;
+    }
+    .rsvp-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: .88rem;
+      letter-spacing: .04em;
+      color: var(--bark);
+      background: var(--parchment);
+      border: 1px solid var(--parchment-dk);
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color .2s;
+    }
+    .rsvp-input:focus { border-color: var(--pine-muted); }
+    .rsvp-input.error { border-color: #b5746a; }
+
+    .rsvp-lookup-row {
+      display: grid;
+      grid-template-columns: 1fr 96px;
+      gap: 12px;
+    }
+    @media (max-width: 480px) {
+      .rsvp-lookup-row { grid-template-columns: 1fr; }
+    }
+
+    .rsvp-btn {
+      display: inline-block;
+      width: 100%;
+      padding: 14px 0;
+      font-family: var(--font-body);
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--snow);
+      background: var(--pine);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      margin-top: 8px;
+    }
+    .rsvp-btn:hover { background: var(--bark); transform: translateY(-1px); }
+    .rsvp-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .rsvp-btn-ghost {
+      background: transparent;
+      color: var(--pine-muted);
+      border: 1px solid var(--parchment-dk);
+      margin-top: 10px;
+    }
+    .rsvp-btn-ghost:hover { background: var(--parchment-dk); transform: none; }
+
+    .rsvp-error {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: .9rem;
+      color: #b5746a;
+      margin-top: 10px;
+      min-height: 1.2em;
+    }
+
+    .rsvp-guest-list { margin: 24px 0; display: flex; flex-direction: column; gap: 16px; }
+    .rsvp-guest-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: var(--parchment);
+      border: 1px solid var(--parchment-dk);
+      border-radius: var(--radius);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .rsvp-guest-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--bark);
+      flex: 1;
+      min-width: 120px;
+    }
+    .rsvp-guest-type {
+      font-family: var(--font-body);
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--pine-muted);
+      margin-left: 4px;
+    }
+    .rsvp-toggle {
+      display: flex;
+      border: 1px solid var(--parchment-dk);
+      border-radius: 20px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .rsvp-toggle button {
+      padding: 6px 18px;
+      font-family: var(--font-body);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      border: none;
+      background: transparent;
+      color: var(--bark-light);
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .rsvp-toggle button.selected-yes {
+      background: var(--pine);
+      color: var(--snow);
+    }
+    .rsvp-toggle button.selected-no {
+      background: #b5746a;
+      color: var(--snow);
+    }
+
+    .rsvp-email-note {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: .88rem;
+      color: var(--bark-light);
+      margin-bottom: 20px;
+    }
+
+    .rsvp-success {
+      text-align: center;
+      padding: 16px 0 8px;
+    }
+    .rsvp-success .check {
+      font-size: 2.8rem;
+      display: block;
+      margin-bottom: 16px;
+      color: var(--pine);
+    }
+    .rsvp-success h2 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--bark);
+      margin-bottom: 12px;
+    }
+    .rsvp-success p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--bark-light);
+      line-height: 1.7;
+    }
+
+    .rsvp-status-list { margin: 16px 0 28px; display: flex; flex-direction: column; gap: 12px; }
+    .rsvp-status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--parchment);
+      border: 1px solid var(--parchment-dk);
+      border-radius: var(--radius);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .rsvp-status-name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--bark);
+    }
+    .rsvp-status-badge {
+      font-family: var(--font-body);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .rsvp-status-badge.yes { background: rgba(45,74,62,.1); color: var(--pine); }
+    .rsvp-status-badge.no  { background: rgba(181,116,106,.12); color: #b5746a; }
+    .rsvp-status-badge.pending { background: var(--parchment-dk); color: var(--bark-light); }
+    .rsvp-status-meta {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: .85rem;
+      color: var(--pine-muted);
+      margin-bottom: 20px;
+    }
+
+    .rsvp-plusone-name-wrap {
+      width: 100%;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height .3s ease, margin-top .3s ease;
+      margin-top: 0;
+    }
+    .rsvp-plusone-name-wrap.open {
+      max-height: 64px;
+      margin-top: 10px;
+    }
+    .rsvp-plusone-name-wrap .rsvp-input {
+      font-size: .82rem;
+    }
+
     /* ─── FOOTER ─────────────────────────────────────────────── */
     footer {
       text-align: center;
@@ -839,6 +1092,7 @@
       <li><a href="#" onclick="showTab('schedule')" id="nav-schedule">Schedule</a></li>
       <li><a href="#" onclick="showTab('travel')"   id="nav-travel">Travel</a></li>
       <li><a href="#" onclick="showTab('todo')"     id="nav-todo">Things To Do</a></li>
+      <li><a href="#" onclick="showTab('rsvp')"     id="nav-rsvp">RSVP</a></li>
       <li><a href="#" onclick="showTab('registry')" id="nav-registry">Registry</a></li>
     </ul>
   </div>
@@ -1122,6 +1376,72 @@
   </div>
 </div>
 
+<!-- ═══ RSVP ══════════════════════════════════════════════════ -->
+<div id="pane-rsvp" class="pane">
+  <div class="rsvp-wrap">
+    <div class="rsvp-header">
+      <span class="section-label">We hope you can make it</span>
+      <h1>RSVP</h1>
+      <p>Please respond by May 1, 2027</p>
+    </div>
+
+    <div class="rsvp-card">
+
+      <!-- Step 1: Lookup -->
+      <div class="rsvp-step active" id="rsvp-step-lookup">
+        <p class="rsvp-email-note">Enter the last name and first initial of anyone in your party to find your invitation.</p>
+        <div class="rsvp-lookup-row">
+          <div class="rsvp-field-group" style="margin-bottom:0">
+            <label for="rsvp-lastname">Last Name</label>
+            <input class="rsvp-input" id="rsvp-lastname" type="text" placeholder="Smith" autocomplete="family-name" />
+          </div>
+          <div class="rsvp-field-group" style="margin-bottom:0">
+            <label for="rsvp-initial">First Initial</label>
+            <input class="rsvp-input" id="rsvp-initial" type="text" placeholder="J" maxlength="1" autocomplete="off" />
+          </div>
+        </div>
+        <button class="rsvp-btn" id="rsvp-lookup-btn">Find My Invitation</button>
+        <p class="rsvp-error" id="rsvp-lookup-error"></p>
+      </div>
+
+      <!-- Step 2: Respond -->
+      <div class="rsvp-step" id="rsvp-step-respond">
+        <p class="rsvp-email-note" id="rsvp-group-intro">Please indicate attendance for each person in your party.</p>
+        <div class="rsvp-guest-list" id="rsvp-guest-list"></div>
+
+        <div class="rsvp-field-group" style="margin-top:28px">
+          <label for="rsvp-email">Your Email <span style="color:#b5746a">*</span></label>
+          <input class="rsvp-input" id="rsvp-email" type="email" placeholder="you@example.com" autocomplete="email" />
+          <p style="font-family:var(--font-serif);font-style:italic;font-size:.82rem;color:var(--pine-muted);margin-top:6px">We'll only use this to send you updates about the wedding.</p>
+        </div>
+
+        <button class="rsvp-btn" id="rsvp-submit-btn">Submit RSVP</button>
+        <button class="rsvp-btn rsvp-btn-ghost" id="rsvp-back-btn">Search Again</button>
+        <p class="rsvp-error" id="rsvp-submit-error"></p>
+      </div>
+
+      <!-- Step 2b: Existing status view -->
+      <div class="rsvp-step" id="rsvp-step-status">
+        <p class="rsvp-status-meta" id="rsvp-status-meta"></p>
+        <div class="rsvp-status-list" id="rsvp-status-list"></div>
+        <button class="rsvp-btn" id="rsvp-edit-btn">Edit RSVP</button>
+        <button class="rsvp-btn rsvp-btn-ghost" id="rsvp-status-back-btn">Search Again</button>
+      </div>
+
+      <!-- Step 3: Confirmation -->
+      <div class="rsvp-step" id="rsvp-step-done">
+        <div class="rsvp-success">
+          <span class="check">✓</span>
+          <h2>You're all set</h2>
+          <p>Thank you for responding! We can't wait to celebrate with you.<br>A confirmation will be sent to your email.</p>
+          <button class="rsvp-btn" id="rsvp-again-btn" style="max-width:240px;margin:28px auto 0">RSVP for Another Guest</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- ═══ REGISTRY ══════════════════════════════════════════════ -->
 <div id="pane-registry" class="pane">
   <div class="registry-wrap">
@@ -1212,6 +1532,362 @@
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
+
+  // ─── RSVP ─────────────────────────────────────────────────────
+  // Replace with your deployed Apps Script URL after setup
+  const RSVP_SCRIPT_URL = 'YOUR_APPS_SCRIPT_DEPLOY_URL_HERE';
+
+  let rsvpGroups = [];
+  let activeGroupId = null;
+  let guestAttendance = {};
+  let existingRsvps = {};
+  let isEdit = false;
+
+  function rsvpShowStep(id) {
+    document.querySelectorAll('.rsvp-step').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function rsvpSetError(elId, msg) {
+    const el = document.getElementById(elId);
+    if (el) el.textContent = msg || '';
+  }
+
+  function rsvpReset() {
+    document.getElementById('rsvp-lastname').value = '';
+    document.getElementById('rsvp-initial').value = '';
+    document.getElementById('rsvp-email').value = '';
+    rsvpGroups = [];
+    activeGroupId = null;
+    guestAttendance = {};
+    guestNames = {};
+    existingRsvps = {};
+    isEdit = false;
+    rsvpShowStep('rsvp-step-lookup');
+  }
+
+  // ── Lookup ────────────────────────────────────────────────────
+  document.getElementById('rsvp-lookup-btn').addEventListener('click', rsvpLookup);
+  document.getElementById('rsvp-lastname').addEventListener('keydown', e => { if (e.key === 'Enter') rsvpLookup(); });
+  document.getElementById('rsvp-initial').addEventListener('keydown', e => { if (e.key === 'Enter') rsvpLookup(); });
+
+  function rsvpLookup() {
+    const lastName = document.getElementById('rsvp-lastname').value.trim();
+    const initial  = document.getElementById('rsvp-initial').value.trim();
+    rsvpSetError('rsvp-lookup-error', '');
+
+    if (!lastName || !initial) {
+      rsvpSetError('rsvp-lookup-error', 'Please enter a last name and first initial.');
+      return;
+    }
+
+    const btn = document.getElementById('rsvp-lookup-btn');
+    btn.disabled = true;
+    btn.textContent = 'Searching…';
+
+    const url = `${RSVP_SCRIPT_URL}?action=lookup&lastName=${encodeURIComponent(lastName)}&firstInitial=${encodeURIComponent(initial)}`;
+
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        btn.disabled = false;
+        btn.textContent = 'Find My Invitation';
+
+        if (!data.found || !data.groups || data.groups.length === 0) {
+          rsvpSetError('rsvp-lookup-error', "We couldn't find that name. Please double-check and try again, or contact us directly.");
+          return;
+        }
+
+        rsvpGroups = data.groups;
+        activeGroupId = rsvpGroups[0].groupId;
+        existingRsvps = data.existingRsvps || {};
+        guestAttendance = {};
+        isEdit = false;
+
+        const group = rsvpGroups[0];
+        const hasAnyRsvp = group.members.some(m => m.guestId in existingRsvps);
+
+        if (hasAnyRsvp) {
+          renderStatusView(group);
+          rsvpShowStep('rsvp-step-status');
+        } else {
+          renderGuestList(group, false);
+          rsvpShowStep('rsvp-step-respond');
+        }
+      })
+      .catch(() => {
+        btn.disabled = false;
+        btn.textContent = 'Find My Invitation';
+        rsvpSetError('rsvp-lookup-error', 'Something went wrong — please try again.');
+      });
+  }
+
+  // ── Status view ───────────────────────────────────────────────
+  function renderStatusView(group) {
+    const list = document.getElementById('rsvp-status-list');
+    list.innerHTML = '';
+
+    // Find the most recent RSVP date and email across all guests in the group
+    let latestDate = '';
+    let latestEmail = '';
+    group.members.forEach(m => {
+      const r = existingRsvps[m.guestId];
+      if (r) {
+        if (!latestDate || r.rsvpDate > latestDate) {
+          latestDate = r.rsvpDate;
+          latestEmail = r.email;
+        }
+      }
+    });
+
+    const meta = document.getElementById('rsvp-status-meta');
+    if (latestDate) {
+      meta.textContent = `RSVP submitted on ${latestDate}${latestEmail ? ' · ' + latestEmail : ''}`;
+    } else {
+      meta.textContent = '';
+    }
+
+    group.members.forEach(m => {
+      const r = existingRsvps[m.guestId];
+      const typeLabel = m.type === 'plus-one' ? 'Plus One' : m.type === 'child' ? 'Child' : '';
+      let badgeClass, badgeText;
+      if (!r) {
+        badgeClass = 'pending'; badgeText = 'Pending';
+      } else if (r.attending) {
+        badgeClass = 'yes'; badgeText = 'Attending';
+      } else {
+        badgeClass = 'no'; badgeText = 'Declining';
+      }
+
+      // For unnamed plus-ones, show the name they entered if attending
+      let displayName;
+      if (m.unnamed) {
+        if (r && r.attending && r.firstName) {
+          displayName = `${r.firstName}${r.lastName ? ' ' + r.lastName : ''}`;
+        } else {
+          displayName = 'Plus One';
+        }
+      } else {
+        displayName = `${m.firstName} ${m.lastName}`;
+      }
+
+      const row = document.createElement('div');
+      row.className = 'rsvp-status-row';
+      row.innerHTML = `
+        <div>
+          <span class="rsvp-status-name">${displayName}</span>
+          ${typeLabel ? `<span class="rsvp-guest-type">${typeLabel}</span>` : ''}
+        </div>
+        <span class="rsvp-status-badge ${badgeClass}">${badgeText}</span>`;
+      list.appendChild(row);
+    });
+  }
+
+  document.getElementById('rsvp-edit-btn').addEventListener('click', () => {
+    const group = rsvpGroups.find(g => g.groupId === activeGroupId);
+    isEdit = true;
+
+    // Pre-populate toggles and email from existing data
+    const knownEmail = (() => {
+      for (const id in existingRsvps) {
+        if (existingRsvps[id].email) return existingRsvps[id].email;
+      }
+      return '';
+    })();
+    document.getElementById('rsvp-email').value = knownEmail;
+
+    guestNames = {};
+    group.members.forEach(m => {
+      const r = existingRsvps[m.guestId];
+      guestAttendance[m.guestId] = r ? r.attending : null;
+      if (m.unnamed && r) {
+        guestNames[m.guestId] = { first: r.firstName || '', last: r.lastName || '' };
+      }
+    });
+
+    renderGuestList(group, true);
+    rsvpShowStep('rsvp-step-respond');
+  });
+
+  document.getElementById('rsvp-status-back-btn').addEventListener('click', rsvpReset);
+
+  // guestNames: { guestId -> { first, last } } for unnamed plus-ones
+  let guestNames = {};
+
+  // ── Respond form ──────────────────────────────────────────────
+  function renderGuestList(group, prefill) {
+    const list = document.getElementById('rsvp-guest-list');
+    list.innerHTML = '';
+
+    const intro = document.getElementById('rsvp-group-intro');
+    intro.textContent = prefill
+      ? 'Update attendance for each person in your party.'
+      : 'Please indicate attendance for each person in your party.';
+
+    const submitBtn = document.getElementById('rsvp-submit-btn');
+    submitBtn.textContent = prefill ? 'Update RSVP' : 'Submit RSVP';
+
+    group.members.forEach(m => {
+      if (!(m.guestId in guestAttendance)) guestAttendance[m.guestId] = null;
+      const current = guestAttendance[m.guestId];
+
+      // For unnamed plus-ones, seed names from existingRsvps if editing
+      if (m.unnamed && !(m.guestId in guestNames)) {
+        const prev = existingRsvps[m.guestId];
+        guestNames[m.guestId] = {
+          first: (prev && prev.firstName) ? prev.firstName : '',
+          last:  (prev && prev.lastName)  ? prev.lastName  : ''
+        };
+      }
+
+      const typeLabel = m.type === 'plus-one' ? 'Plus One' : m.type === 'child' ? 'Child' : '';
+      const displayName = m.unnamed ? 'Plus One' : `${m.firstName} ${m.lastName}`;
+      const nameSlotOpen = m.unnamed && current === true;
+      const savedFirst = m.unnamed ? (guestNames[m.guestId] || {}).first || '' : '';
+      const savedLast  = m.unnamed ? (guestNames[m.guestId] || {}).last  || '' : '';
+
+      const row = document.createElement('div');
+      row.className = 'rsvp-guest-row';
+      row.style.flexDirection = 'column';
+      row.style.alignItems = 'stretch';
+      row.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div>
+            <span class="rsvp-guest-name">${displayName}</span>
+            ${typeLabel ? `<span class="rsvp-guest-type">${typeLabel}</span>` : ''}
+          </div>
+          <div class="rsvp-toggle">
+            <button data-id="${m.guestId}" data-val="yes" class="${current === true ? 'selected-yes' : ''}">Attending</button>
+            <button data-id="${m.guestId}" data-val="no"  class="${current === false ? 'selected-no' : ''}">Declining</button>
+          </div>
+        </div>
+        ${m.unnamed ? `
+        <div class="rsvp-plusone-name-wrap${nameSlotOpen ? ' open' : ''}" id="name-wrap-${m.guestId}">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <input class="rsvp-input" id="plusone-first-${m.guestId}" type="text" placeholder="First name" value="${savedFirst}" autocomplete="given-name" />
+            <input class="rsvp-input" id="plusone-last-${m.guestId}"  type="text" placeholder="Last name"  value="${savedLast}"  autocomplete="family-name" />
+          </div>
+        </div>` : ''}`;
+
+      row.querySelectorAll('.rsvp-toggle button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = btn.dataset.val;
+          guestAttendance[btn.dataset.id] = val === 'yes';
+          row.querySelector('[data-val="yes"]').className = val === 'yes' ? 'selected-yes' : '';
+          row.querySelector('[data-val="no"]').className  = val === 'no'  ? 'selected-no'  : '';
+          if (m.unnamed) {
+            const wrap = document.getElementById(`name-wrap-${m.guestId}`);
+            if (wrap) wrap.classList.toggle('open', val === 'yes');
+          }
+        });
+      });
+
+      if (m.unnamed) {
+        ['first', 'last'].forEach(part => {
+          const input = row.querySelector(`#plusone-${part}-${m.guestId}`);
+          if (input) {
+            input.addEventListener('input', () => {
+              if (!guestNames[m.guestId]) guestNames[m.guestId] = { first: '', last: '' };
+              guestNames[m.guestId][part] = input.value.trim();
+            });
+          }
+        });
+      }
+
+      list.appendChild(row);
+    });
+  }
+
+  // ── Submit ────────────────────────────────────────────────────
+  document.getElementById('rsvp-submit-btn').addEventListener('click', rsvpSubmit);
+
+  function rsvpSubmit() {
+    rsvpSetError('rsvp-submit-error', '');
+    const email = document.getElementById('rsvp-email').value.trim();
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      rsvpSetError('rsvp-submit-error', 'Please enter a valid email address.');
+      return;
+    }
+
+    const group = rsvpGroups.find(g => g.groupId === activeGroupId);
+    const unset = group.members.filter(m => guestAttendance[m.guestId] === null);
+    if (unset.length > 0) {
+      rsvpSetError('rsvp-submit-error', 'Please mark attendance for every guest.');
+      return;
+    }
+
+    // Validate unnamed plus-ones that are attending must have a first name
+    for (const m of group.members) {
+      if (m.unnamed && guestAttendance[m.guestId] === true) {
+        const names = guestNames[m.guestId] || {};
+        if (!names.first) {
+          rsvpSetError('rsvp-submit-error', 'Please enter the name of your plus one.');
+          return;
+        }
+      }
+    }
+
+    const rsvps = group.members.map(m => {
+      let firstName = m.firstName;
+      let lastName  = m.lastName;
+      if (m.unnamed && guestAttendance[m.guestId] === true) {
+        const names = guestNames[m.guestId] || {};
+        firstName = names.first || '';
+        lastName  = names.last  || '';
+      }
+      return { guestId: m.guestId, firstName, lastName, attending: guestAttendance[m.guestId] };
+    });
+
+    const today = new Date().toISOString().split('T')[0];
+
+    const btn = document.getElementById('rsvp-submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    const url = `${RSVP_SCRIPT_URL}?action=rsvp` +
+      `&email=${encodeURIComponent(email)}` +
+      `&groupId=${encodeURIComponent(activeGroupId)}` +
+      `&rsvpDate=${encodeURIComponent(today)}` +
+      `&rsvps=${encodeURIComponent(JSON.stringify(rsvps))}`;
+
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        btn.disabled = false;
+        btn.textContent = isEdit ? 'Update RSVP' : 'Submit RSVP';
+        if (data.success) {
+          const doneMsg = document.querySelector('#rsvp-step-done p');
+          if (isEdit) {
+            doneMsg.textContent = "Your RSVP has been updated. See you on June 19th!";
+          } else {
+            doneMsg.innerHTML = "Thank you for responding! We can't wait to celebrate with you.<br>A confirmation will be sent to your email.";
+          }
+          rsvpShowStep('rsvp-step-done');
+        } else {
+          rsvpSetError('rsvp-submit-error', data.error || 'Something went wrong — please try again.');
+        }
+      })
+      .catch(() => {
+        btn.disabled = false;
+        btn.textContent = isEdit ? 'Update RSVP' : 'Submit RSVP';
+        rsvpSetError('rsvp-submit-error', 'Something went wrong — please try again.');
+      });
+  }
+
+  // ── Navigation ────────────────────────────────────────────────
+  document.getElementById('rsvp-back-btn').addEventListener('click', () => {
+    rsvpSetError('rsvp-submit-error', '');
+    // If editing, go back to status view; otherwise go to lookup
+    if (isEdit) {
+      renderStatusView(rsvpGroups.find(g => g.groupId === activeGroupId));
+      rsvpShowStep('rsvp-step-status');
+    } else {
+      rsvpShowStep('rsvp-step-lookup');
+    }
+  });
+
+  document.getElementById('rsvp-again-btn').addEventListener('click', rsvpReset);
 </script>
 
 </body>
