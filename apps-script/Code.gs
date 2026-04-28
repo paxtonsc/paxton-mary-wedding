@@ -51,8 +51,10 @@ function lookup(lastName, firstInitial) {
 
   for (let i = 1; i < data.length; i++) {
     const row = data[i];
+    const rowFirstName = String(row[2]).trim();
+    if (!rowFirstName || rowFirstName.toLowerCase() === 'tbd') continue; // skip unnamed members
     const rowLN = String(row[3]).trim().toLowerCase();
-    const rowFI = String(row[2]).trim().toLowerCase().charAt(0);
+    const rowFI = rowFirstName.toLowerCase().charAt(0);
     if (rowLN === lnLower && rowFI === fi) {
       matchingGroupIds.add(String(row[1]));
     }
@@ -71,7 +73,6 @@ function lookup(lastName, firstInitial) {
         guestId: String(row[0]),
         firstName: firstName,
         lastName: String(row[3]),
-        type: String(row[4]),
         unnamed: firstName === '' || firstName.toLowerCase() === 'tbd'
       });
     }

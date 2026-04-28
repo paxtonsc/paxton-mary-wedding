@@ -1646,7 +1646,6 @@
 
     group.members.forEach(m => {
       const r = existingRsvps[m.guestId];
-      const typeLabel = '';
       let badgeClass, badgeText;
       if (!r) {
         badgeClass = 'pending'; badgeText = 'Pending';
@@ -1671,10 +1670,7 @@
       const row = document.createElement('div');
       row.className = 'rsvp-status-row';
       row.innerHTML = `
-        <div>
-          <span class="rsvp-status-name">${displayName}</span>
-          ${typeLabel ? `<span class="rsvp-guest-type">${typeLabel}</span>` : ''}
-        </div>
+        <span class="rsvp-status-name">${displayName}</span>
         <span class="rsvp-status-badge ${badgeClass}">${badgeText}</span>`;
       list.appendChild(row);
     });
@@ -1737,7 +1733,6 @@
         };
       }
 
-      const typeLabel = '';
       const displayName = m.unnamed ? 'Plus One' : `${m.firstName} ${m.lastName}`;
       const nameSlotOpen = m.unnamed && current === true;
       const savedFirst = m.unnamed ? (guestNames[m.guestId] || {}).first || '' : '';
@@ -1749,10 +1744,7 @@
       row.style.alignItems = 'stretch';
       row.innerHTML = `
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-          <div>
-            <span class="rsvp-guest-name">${displayName}</span>
-            ${typeLabel ? `<span class="rsvp-guest-type">${typeLabel}</span>` : ''}
-          </div>
+          <span class="rsvp-guest-name">${displayName}</span>
           <div class="rsvp-toggle">
             <button data-id="${m.guestId}" data-val="yes" class="${current === true ? 'selected-yes' : ''}">Attending</button>
             <button data-id="${m.guestId}" data-val="no"  class="${current === false ? 'selected-no' : ''}">Declining</button>
