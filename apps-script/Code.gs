@@ -126,18 +126,25 @@ function submitRSVP(params) {
   }
 
   const timestamp = new Date().toISOString();
+  const today = rsvpDate || timestamp.split('T')[0];
+
+  // Build a map of guestId -> row index (1-based) from existing data
+  const existingRows = {};
+  const lastRow = sheet.getLastRow();
+  if (lastRow > 1) {
+    const guestIdCol = sheet.getRange(2, 5, lastRow - 1, 1).getValues();
+    guestIdCol.forEach((r, i) => {
+      existingRows[String(r[0])] = i + 2; // +2: 1-based + header row
+    });
+  }
 
   rsvps.forEach(r => {
-    sheet.appendRow([
-      timestamp,
-      rsvpDate || timestamp.split('T')[0],
-      email,
-      groupId,
-      r.guestId,
-      r.firstName,
-      r.lastName,
-      r.attending ? 'Yes' : 'No'
-    ]);
+    const rowData = [timestamp, today, email, groupId, r.guestId, r.firstName, r.lastName, r.attending ? 'Yes' : 'No'];
+    if (existingRows[r.guestId]) {
+      sheet.getRange(existingRows[r.guestId], 1, 1, rowData.length).setValues([rowData]);
+    } else {
+      sheet.appendRow(rowData);
+    }
   });
 
   return { success: true };
