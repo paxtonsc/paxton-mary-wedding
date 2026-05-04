@@ -609,84 +609,6 @@
       color: var(--pine-muted);
     }
 
-    /* ─── THINGS TO DO TAB ───────────────────────────────────── */
-    .todo-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 48px;
-      padding-bottom: 100px;
-    }
-
-    .todo-category h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 300;
-      color: var(--bark);
-      margin-bottom: 6px;
-    }
-    .todo-category .sub {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: .95rem;
-      color: var(--bark-light);
-      margin-bottom: 24px;
-    }
-
-    .todo-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 16px;
-    }
-
-    .todo-card {
-      background: var(--snow);
-      border: 1px solid var(--parchment-dk);
-      border-radius: var(--radius);
-      padding: 24px 22px;
-      transition: transform .2s, box-shadow .2s;
-    }
-    .todo-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(45,74,62,.09);
-    }
-    .todo-card-tag {
-      font-family: var(--font-body);
-      font-size: .6rem;
-      font-weight: 600;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--pine-muted);
-      margin-bottom: 10px;
-      display: block;
-    }
-    .todo-card h3 {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 400;
-      color: var(--bark);
-      margin-bottom: 6px;
-      line-height: 1.2;
-    }
-    .todo-card p {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: .9rem;
-      color: var(--bark-light);
-      line-height: 1.55;
-      margin-bottom: 12px;
-    }
-    .todo-card a {
-      display: inline-block;
-      font-size: .65rem;
-      font-weight: 600;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--amber);
-      border-bottom: 1px solid var(--amber-light);
-      padding-bottom: 1px;
-      transition: color .2s, border-color .2s;
-    }
-    .todo-card a:hover { color: var(--pine); border-color: var(--pine-muted); }
 
     /* ─── RSVP TAB ───────────────────────────────────────────── */
     .rsvp-wrap {
@@ -1088,7 +1010,6 @@
       <li><a href="#" onclick="showTab('home')"     id="nav-home"     class="active">Home</a></li>
       <li><a href="#" onclick="showTab('schedule')" id="nav-schedule">Schedule</a></li>
       <li><a href="#" onclick="showTab('travel')"   id="nav-travel">Travel</a></li>
-      <li><a href="#" onclick="showTab('todo')"     id="nav-todo">Things To Do</a></li>
       <li><a href="#" onclick="showTab('rsvp')"     id="nav-rsvp">RSVP</a></li>
       <li><a href="#" onclick="showTab('registry')" id="nav-registry">Registry</a></li>
     </ul>
