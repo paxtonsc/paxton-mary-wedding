@@ -1578,10 +1578,19 @@
           last:  (prev && prev.lastName)  ? prev.lastName  : ''
         };
       }
+      // For named guests missing a last name, seed from existingRsvps if editing
+      if (!m.unnamed && !m.lastName && !(m.guestId in guestNames)) {
+        const prev = existingRsvps[m.guestId];
+        guestNames[m.guestId] = {
+          first: m.firstName,
+          last:  (prev && prev.lastName) ? prev.lastName : ''
+        };
+      }
 
-      const displayName = m.unnamed ? 'Plus One' : `${m.firstName} ${m.lastName}`;
-      const savedFirst = m.unnamed ? (guestNames[m.guestId] || {}).first || '' : '';
-      const savedLast  = m.unnamed ? (guestNames[m.guestId] || {}).last  || '' : '';
+      const needsLastName = !m.unnamed && !m.lastName;
+      const displayName = m.unnamed ? 'Plus One' : `${m.firstName}${m.lastName ? ' ' + m.lastName : ''}`;
+      const savedFirst = (m.unnamed || needsLastName) ? (guestNames[m.guestId] || {}).first || '' : '';
+      const savedLast  = (m.unnamed || needsLastName) ? (guestNames[m.guestId] || {}).last  || '' : '';
       // Name slot opens when plus-one is attending ceremony
       const nameSlotOpen = m.unnamed && current.ceremony === true;
 
@@ -1609,6 +1618,9 @@
             <input class="rsvp-input" id="plusone-first-${m.guestId}" type="text" placeholder="First name" value="${savedFirst}" autocomplete="given-name" />
             <input class="rsvp-input" id="plusone-last-${m.guestId}"  type="text" placeholder="Last name"  value="${savedLast}"  autocomplete="family-name" />
           </div>
+        </div>` : needsLastName ? `
+        <div style="margin-top:10px">
+          <input class="rsvp-input" id="plusone-last-${m.guestId}" type="text" placeholder="Last name (required)" value="${savedLast}" autocomplete="family-name" />
         </div>` : ''}`;
 
       row.querySelectorAll('.rsvp-toggle button').forEach(btn => {
@@ -1627,12 +1639,12 @@
         });
       });
 
-      if (m.unnamed) {
+      if (m.unnamed || needsLastName) {
         ['first', 'last'].forEach(part => {
           const input = row.querySelector(`#plusone-${part}-${m.guestId}`);
           if (input) {
             input.addEventListener('input', () => {
-              if (!guestNames[m.guestId]) guestNames[m.guestId] = { first: '', last: '' };
+              if (!guestNames[m.guestId]) guestNames[m.guestId] = { first: m.firstName, last: '' };
               guestNames[m.guestId][part] = input.value.trim();
             });
           }
@@ -1676,6 +1688,14 @@
           return;
         }
       }
+      // Named guests with only a first name must supply a last name
+      if (!m.unnamed && !m.lastName) {
+        const names = guestNames[m.guestId] || {};
+        if (!names.last) {
+          rsvpSetError('rsvp-submit-error', `Please enter a last name for ${m.firstName}.`);
+          return;
+        }
+      }
     }
 
     const rsvps = group.members.map(m => {
@@ -1685,6 +1705,9 @@
         const names = guestNames[m.guestId] || {};
         firstName = names.first || '';
         lastName  = names.last  || '';
+      } else if (!m.unnamed && !m.lastName) {
+        const names = guestNames[m.guestId] || {};
+        lastName = names.last || '';
       }
       const a = guestAttendance[m.guestId];
       return {
