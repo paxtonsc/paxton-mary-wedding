@@ -7,6 +7,10 @@
 // 4. Deploy: Extensions → Apps Script → Deploy → New deployment
 //      Type: Web app · Execute as: Me · Who has access: Anyone
 //    Copy the deployment URL and paste into index.html as RSVP_SCRIPT_URL
+//
+// RSVPs sheet columns:
+//   0=Timestamp  1=RSVPDate  2=Email  3=GroupID  4=GuestID
+//   5=FirstName  6=LastName  7=WelcomeDinner  8=Ceremony  9=SundayBrunch
 
 const SHEET_ID = '1nsmis0D-yjUk8wR1plM1ZVQIU6Ug5tZXwKSG7cyTsJk';
 
@@ -52,7 +56,7 @@ function lookup(lastName, firstInitial) {
   for (let i = 1; i < data.length; i++) {
     const row = data[i];
     const rowFirstName = String(row[2]).trim();
-    if (!rowFirstName || rowFirstName.toLowerCase() === 'tbd') continue; // skip unnamed members
+    if (!rowFirstName || rowFirstName.toLowerCase() === 'tbd') continue;
     const rowLN = String(row[3]).trim().toLowerCase();
     const rowFI = rowFirstName.toLowerCase().charAt(0);
     if (rowLN === lnLower && rowFI === fi) {
@@ -79,21 +83,23 @@ function lookup(lastName, firstInitial) {
   }
 
   // Fetch latest RSVP status per guest from RSVPs sheet
+  // Columns: 0=Timestamp 1=RSVPDate 2=Email 3=GroupID 4=GuestID
+  //          5=FirstName 6=LastName 7=WelcomeDinner 8=Ceremony 9=SundayBrunch
   const existingRsvps = {};
   const rsvpSheet = ss.getSheetByName('RSVPs');
   if (rsvpSheet && rsvpSheet.getLastRow() > 1) {
     const rsvpData = rsvpSheet.getDataRange().getValues();
-    // Columns: 0=Timestamp 1=RSVPDate 2=Email 3=GroupID 4=GuestID 5=FirstName 6=LastName 7=Attending
-    // Iterating forward means the last write for each guestId wins (most recent)
     for (let i = 1; i < rsvpData.length; i++) {
       const r = rsvpData[i];
       const gid = String(r[4]);
       existingRsvps[gid] = {
-        attending: String(r[7]).toLowerCase() === 'yes',
         email: String(r[2]),
         rsvpDate: String(r[1]),
         firstName: String(r[5]),
-        lastName: String(r[6])
+        lastName: String(r[6]),
+        welcomeDinner: String(r[7]).toLowerCase() === 'yes',
+        ceremony: String(r[8]).toLowerCase() === 'yes',
+        sundayBrunch: String(r[9]).toLowerCase() === 'yes'
       };
     }
   }
@@ -122,7 +128,10 @@ function submitRSVP(params) {
   let sheet = ss.getSheetByName('RSVPs');
   if (!sheet) {
     sheet = ss.insertSheet('RSVPs');
-    sheet.appendRow(['Timestamp', 'RSVPDate', 'Email', 'GroupID', 'GuestID', 'FirstName', 'LastName', 'Attending']);
+    sheet.appendRow([
+      'Timestamp', 'RSVPDate', 'Email', 'GroupID', 'GuestID',
+      'FirstName', 'LastName', 'WelcomeDinner', 'Ceremony', 'SundayBrunch'
+    ]);
     sheet.setFrozenRows(1);
   }
 
@@ -140,7 +149,18 @@ function submitRSVP(params) {
   }
 
   rsvps.forEach(r => {
-    const rowData = [timestamp, today, email, groupId, r.guestId, r.firstName, r.lastName, r.attending ? 'Yes' : 'No'];
+    const rowData = [
+      timestamp,
+      today,
+      email,
+      groupId,
+      r.guestId,
+      r.firstName,
+      r.lastName,
+      r.welcomeDinner ? 'Yes' : 'No',
+      r.ceremony     ? 'Yes' : 'No',
+      r.sundayBrunch ? 'Yes' : 'No'
+    ];
     if (existingRows[r.guestId]) {
       sheet.getRange(existingRows[r.guestId], 1, 1, rowData.length).setValues([rowData]);
     } else {

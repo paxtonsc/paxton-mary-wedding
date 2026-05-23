@@ -837,6 +837,52 @@
     .rsvp-status-badge.yes { background: rgba(45,74,62,.1); color: var(--pine); }
     .rsvp-status-badge.no  { background: rgba(181,116,106,.12); color: #b5746a; }
     .rsvp-status-badge.pending { background: var(--parchment-dk); color: var(--bark-light); }
+
+    .rsvp-event-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 10px;
+      flex-wrap: wrap;
+    }
+    .rsvp-event-label {
+      font-family: var(--font-body);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      color: var(--bark);
+      flex: 1;
+      min-width: 140px;
+    }
+    .rsvp-event-sub {
+      font-weight: 300;
+      font-size: .72rem;
+      color: var(--bark-light);
+      letter-spacing: .04em;
+      margin-left: 5px;
+    }
+    .rsvp-status-events {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      margin-top: 8px;
+    }
+    .rsvp-status-event-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .rsvp-status-event-name {
+      font-family: var(--font-body);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--bark-light);
+    }
     .rsvp-status-meta {
       font-family: var(--font-serif);
       font-style: italic;
@@ -1317,13 +1363,25 @@
 
   // ─── RSVP ─────────────────────────────────────────────────────
   // Replace with your deployed Apps Script URL after setup
-  const RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxn0IMZlAEpRIisu1FttroaV313Ix6PuN3gc2Ex3ablwq8pGf9qwpr1Glg6MFaghfYD/exec';
+  const RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxfUzmOrsNUJqK_zVaSshp4Krmye-MLsKyV5mPoiqwllp3RBBwLxeXEdVwLxlaSp6_r/exec';
 
   let rsvpGroups = [];
   let activeGroupId = null;
   let guestAttendance = {};
   let existingRsvps = {};
   let isEdit = false;
+
+  const EVENTS = [
+    { key: 'welcomeDinner', label: 'Welcome Dinner',       sub: 'Fri, June 18' },
+    { key: 'ceremony',      label: 'Ceremony & Reception', sub: 'Sat, June 19' },
+    { key: 'sundayBrunch',  label: 'Sunday Brunch',        sub: 'Sun, June 20' }
+  ];
+
+  function eventBadge(val) {
+    if (val === true)  return ['yes', 'Attending'];
+    if (val === false) return ['no', 'Declining'];
+    return ['pending', 'Pending'];
+  }
 
   function rsvpShowStep(id) {
     document.querySelectorAll('.rsvp-step').forEach(s => s.classList.remove('active'));
@@ -1347,6 +1405,8 @@
     isEdit = false;
     rsvpShowStep('rsvp-step-lookup');
   }
+
+  // guestAttendance[guestId] = { welcomeDinner: bool|null, ceremony: bool|null, sundayBrunch: bool|null }
 
   // ── Lookup ────────────────────────────────────────────────────
   document.getElementById('rsvp-lookup-btn').addEventListener('click', rsvpLookup);
@@ -1409,54 +1469,49 @@
     const list = document.getElementById('rsvp-status-list');
     list.innerHTML = '';
 
-    // Find the most recent RSVP date and email across all guests in the group
     let latestDate = '';
     let latestEmail = '';
     group.members.forEach(m => {
       const r = existingRsvps[m.guestId];
-      if (r) {
-        if (!latestDate || r.rsvpDate > latestDate) {
-          latestDate = r.rsvpDate;
-          latestEmail = r.email;
-        }
+      if (r && (!latestDate || r.rsvpDate > latestDate)) {
+        latestDate = r.rsvpDate;
+        latestEmail = r.email;
       }
     });
 
     const meta = document.getElementById('rsvp-status-meta');
-    if (latestDate) {
-      meta.textContent = `RSVP submitted on ${latestDate}${latestEmail ? ' · ' + latestEmail : ''}`;
-    } else {
-      meta.textContent = '';
-    }
+    meta.textContent = latestDate
+      ? `RSVP submitted on ${latestDate}${latestEmail ? ' · ' + latestEmail : ''}`
+      : '';
 
     group.members.forEach(m => {
       const r = existingRsvps[m.guestId];
-      let badgeClass, badgeText;
-      if (!r) {
-        badgeClass = 'pending'; badgeText = 'Pending';
-      } else if (r.attending) {
-        badgeClass = 'yes'; badgeText = 'Attending';
-      } else {
-        badgeClass = 'no'; badgeText = 'Declining';
-      }
 
-      // For unnamed plus-ones, show the name they entered if attending
       let displayName;
       if (m.unnamed) {
-        if (r && r.attending && r.firstName) {
-          displayName = `${r.firstName}${r.lastName ? ' ' + r.lastName : ''}`;
-        } else {
-          displayName = 'Plus One';
-        }
+        displayName = (r && r.ceremony && r.firstName)
+          ? `${r.firstName}${r.lastName ? ' ' + r.lastName : ''}`
+          : 'Plus One';
       } else {
         displayName = `${m.firstName} ${m.lastName}`;
       }
 
+      const eventsHtml = EVENTS.map(ev => {
+        const val = r ? r[ev.key] : undefined;
+        const [cls, txt] = eventBadge(val === undefined ? null : val);
+        return `<div class="rsvp-status-event-row">
+          <span class="rsvp-status-event-name">${ev.label}</span>
+          <span class="rsvp-status-badge ${cls}">${txt}</span>
+        </div>`;
+      }).join('');
+
       const row = document.createElement('div');
       row.className = 'rsvp-status-row';
+      row.style.flexDirection = 'column';
+      row.style.alignItems = 'stretch';
       row.innerHTML = `
         <span class="rsvp-status-name">${displayName}</span>
-        <span class="rsvp-status-badge ${badgeClass}">${badgeText}</span>`;
+        <div class="rsvp-status-events">${eventsHtml}</div>`;
       list.appendChild(row);
     });
   }
@@ -1477,7 +1532,11 @@
     guestNames = {};
     group.members.forEach(m => {
       const r = existingRsvps[m.guestId];
-      guestAttendance[m.guestId] = r ? r.attending : null;
+      guestAttendance[m.guestId] = {
+        welcomeDinner: r ? r.welcomeDinner : null,
+        ceremony:      r ? r.ceremony      : null,
+        sundayBrunch:  r ? r.sundayBrunch  : null
+      };
       if (m.unnamed && r) {
         guestNames[m.guestId] = { first: r.firstName || '', last: r.lastName || '' };
       }
@@ -1499,14 +1558,16 @@
 
     const intro = document.getElementById('rsvp-group-intro');
     intro.textContent = prefill
-      ? 'Update attendance for the June 19th ceremony and reception for each person in your party.'
-      : 'Please indicate attendance for the June 19th ceremony and reception for each person in your party.';
+      ? 'Update attendance for each event for every person in your party.'
+      : 'Please indicate attendance for each event for every person in your party.';
 
     const submitBtn = document.getElementById('rsvp-submit-btn');
     submitBtn.textContent = prefill ? 'Update RSVP' : 'Submit RSVP';
 
     group.members.forEach(m => {
-      if (!(m.guestId in guestAttendance)) guestAttendance[m.guestId] = null;
+      if (!(m.guestId in guestAttendance)) {
+        guestAttendance[m.guestId] = { welcomeDinner: null, ceremony: null, sundayBrunch: null };
+      }
       const current = guestAttendance[m.guestId];
 
       // For unnamed plus-ones, seed names from existingRsvps if editing
@@ -1519,22 +1580,29 @@
       }
 
       const displayName = m.unnamed ? 'Plus One' : `${m.firstName} ${m.lastName}`;
-      const nameSlotOpen = m.unnamed && current === true;
       const savedFirst = m.unnamed ? (guestNames[m.guestId] || {}).first || '' : '';
       const savedLast  = m.unnamed ? (guestNames[m.guestId] || {}).last  || '' : '';
+      // Name slot opens when plus-one is attending ceremony
+      const nameSlotOpen = m.unnamed && current.ceremony === true;
+
+      const eventsToggles = EVENTS.map(ev => {
+        const val = current[ev.key];
+        return `<div class="rsvp-event-row">
+          <span class="rsvp-event-label">${ev.label}<span class="rsvp-event-sub">${ev.sub}</span></span>
+          <div class="rsvp-toggle">
+            <button data-id="${m.guestId}" data-ev="${ev.key}" data-val="yes" class="${val === true ? 'selected-yes' : ''}">Attending</button>
+            <button data-id="${m.guestId}" data-ev="${ev.key}" data-val="no"  class="${val === false ? 'selected-no' : ''}">Declining</button>
+          </div>
+        </div>`;
+      }).join('');
 
       const row = document.createElement('div');
       row.className = 'rsvp-guest-row';
       row.style.flexDirection = 'column';
       row.style.alignItems = 'stretch';
       row.innerHTML = `
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-          <span class="rsvp-guest-name">${displayName}</span>
-          <div class="rsvp-toggle">
-            <button data-id="${m.guestId}" data-val="yes" class="${current === true ? 'selected-yes' : ''}">Attending</button>
-            <button data-id="${m.guestId}" data-val="no"  class="${current === false ? 'selected-no' : ''}">Declining</button>
-          </div>
-        </div>
+        <span class="rsvp-guest-name" style="margin-bottom:6px">${displayName}</span>
+        ${eventsToggles}
         ${m.unnamed ? `
         <div class="rsvp-plusone-name-wrap${nameSlotOpen ? ' open' : ''}" id="name-wrap-${m.guestId}">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
@@ -1545,11 +1613,14 @@
 
       row.querySelectorAll('.rsvp-toggle button').forEach(btn => {
         btn.addEventListener('click', () => {
-          const val = btn.dataset.val;
-          guestAttendance[btn.dataset.id] = val === 'yes';
-          row.querySelector('[data-val="yes"]').className = val === 'yes' ? 'selected-yes' : '';
-          row.querySelector('[data-val="no"]').className  = val === 'no'  ? 'selected-no'  : '';
-          if (m.unnamed) {
+          const evKey = btn.dataset.ev;
+          const val   = btn.dataset.val;
+          guestAttendance[btn.dataset.id][evKey] = val === 'yes';
+          // Update sibling button styles within this event row
+          const evRow = btn.closest('.rsvp-event-row');
+          evRow.querySelector('[data-val="yes"]').className = val === 'yes' ? 'selected-yes' : '';
+          evRow.querySelector('[data-val="no"]').className  = val === 'no'  ? 'selected-no'  : '';
+          if (m.unnamed && evKey === 'ceremony') {
             const wrap = document.getElementById(`name-wrap-${m.guestId}`);
             if (wrap) wrap.classList.toggle('open', val === 'yes');
           }
@@ -1585,15 +1656,20 @@
     }
 
     const group = rsvpGroups.find(g => g.groupId === activeGroupId);
-    const unset = group.members.filter(m => guestAttendance[m.guestId] === null);
+
+    // All events must be answered for every guest
+    const unset = group.members.filter(m => {
+      const a = guestAttendance[m.guestId] || {};
+      return EVENTS.some(ev => a[ev.key] === null || a[ev.key] === undefined);
+    });
     if (unset.length > 0) {
-      rsvpSetError('rsvp-submit-error', 'Please mark attendance for every guest.');
+      rsvpSetError('rsvp-submit-error', 'Please mark attendance for every guest and every event.');
       return;
     }
 
-    // Validate unnamed plus-ones that are attending must have a first name
+    // Unnamed plus-ones attending ceremony must have a first name
     for (const m of group.members) {
-      if (m.unnamed && guestAttendance[m.guestId] === true) {
+      if (m.unnamed && guestAttendance[m.guestId].ceremony === true) {
         const names = guestNames[m.guestId] || {};
         if (!names.first) {
           rsvpSetError('rsvp-submit-error', 'Please enter the name of your plus one.');
@@ -1605,12 +1681,20 @@
     const rsvps = group.members.map(m => {
       let firstName = m.firstName;
       let lastName  = m.lastName;
-      if (m.unnamed && guestAttendance[m.guestId] === true) {
+      if (m.unnamed && guestAttendance[m.guestId].ceremony === true) {
         const names = guestNames[m.guestId] || {};
         firstName = names.first || '';
         lastName  = names.last  || '';
       }
-      return { guestId: m.guestId, firstName, lastName, attending: guestAttendance[m.guestId] };
+      const a = guestAttendance[m.guestId];
+      return {
+        guestId: m.guestId,
+        firstName,
+        lastName,
+        welcomeDinner: a.welcomeDinner,
+        ceremony:      a.ceremony,
+        sundayBrunch:  a.sundayBrunch
+      };
     });
 
     const today = new Date().toISOString().split('T')[0];
