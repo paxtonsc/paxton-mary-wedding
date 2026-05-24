@@ -1486,8 +1486,10 @@
 
     const meta = document.getElementById('rsvp-status-meta');
     if (latestDate) {
-      const formatted = new Date(latestDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-      meta.textContent = `RSVP submitted on ${formatted}`;
+      const iso = latestDate.match(/\d{4}-\d{2}-\d{2}/);
+      const parsed = iso ? new Date(iso[0] + 'T00:00:00') : new Date(latestDate);
+      const formatted = isNaN(parsed) ? '' : parsed.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      meta.textContent = formatted ? `RSVP submitted on ${formatted}` : '';
     } else {
       meta.textContent = '';
     }
