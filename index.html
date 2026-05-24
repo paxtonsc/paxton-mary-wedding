@@ -246,6 +246,11 @@
       object-position: right center;
       display: block;
     }
+    @media (max-width: 480px) {
+      .hero-photo { aspect-ratio: 16 / 9; }
+      .nav-inner  { padding: 0 20px; }
+      .nav-links  { gap: 20px; }
+    }
 
     .hero-text {
       padding: 36px 48px 40px;
@@ -674,6 +679,9 @@
     }
     .rsvp-input:focus { border-color: var(--pine-muted); }
     .rsvp-input.error { border-color: #b5746a; }
+    @media (max-width: 768px) {
+      .rsvp-input { font-size: 1rem; }
+    }
 
     .rsvp-lookup-row {
       display: grid;
