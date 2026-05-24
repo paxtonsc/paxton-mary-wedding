@@ -544,66 +544,210 @@
     .hotel-card a:hover { color: var(--pine); border-color: var(--pine-muted); }
 
     /* ─── REGISTRY TAB ───────────────────────────────────────── */
+    /* ─── REGISTRY ──────────────────────────────────────────────── */
     .registry-wrap {
-      min-height: calc(100vh - var(--nav-h) - 200px);
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+    .registry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .reg-item {
+      background: var(--snow);
+      border: 1px solid var(--parchment-dk);
+      border-radius: var(--radius);
+      padding: 24px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 24px;
+      flex-direction: column;
+      gap: 8px;
+      transition: box-shadow .2s;
     }
-    .registry-card {
-      text-align: center;
-      max-width: 520px;
-      width: 100%;
+    .reg-item:hover { box-shadow: 0 4px 16px rgba(45,74,62,.08); }
+    .reg-item.purchased {
+      opacity: .5;
+      pointer-events: none;
     }
-    .registry-card .reg-icon {
-      font-size: 2.4rem;
-      margin-bottom: 20px;
-      display: block;
+    .reg-item.purchased .reg-claim-btn { display: none; }
+    .reg-store {
+      font-family: var(--font-body);
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--pine-muted);
     }
-    .registry-card h1 {
+    .reg-name {
       font-family: var(--font-display);
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      font-weight: 300;
+      font-size: 1.2rem;
+      font-weight: 400;
       color: var(--bark);
-      line-height: 1.15;
-      margin-bottom: 16px;
+      line-height: 1.3;
     }
-    .registry-card p {
+    .reg-desc {
       font-family: var(--font-serif);
       font-style: italic;
-      font-size: 1.05rem;
+      font-size: .9rem;
       color: var(--bark-light);
-      line-height: 1.75;
-      margin-bottom: 40px;
+      line-height: 1.6;
+      flex: 1;
     }
-    .registry-btn {
-      display: inline-block;
+    .reg-price {
       font-family: var(--font-body);
-      font-size: .68rem;
+      font-size: .85rem;
       font-weight: 600;
-      letter-spacing: .25em;
+      color: var(--bark);
+      letter-spacing: .04em;
+    }
+    .reg-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+      align-items: center;
+    }
+    .reg-view-btn {
+      font-family: var(--font-body);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--pine);
+      border: 1px solid var(--pine);
+      padding: 9px 16px;
+      border-radius: var(--radius);
+      transition: background .2s, color .2s;
+      text-decoration: none;
+    }
+    .reg-view-btn:hover { background: var(--pine); color: var(--snow); }
+    .reg-claim-btn {
+      font-family: var(--font-body);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--snow);
       background: var(--pine);
-      padding: 16px 40px;
+      border: none;
+      padding: 9px 16px;
       border-radius: var(--radius);
-      transition: background .25s, transform .2s;
-      position: relative;
-      overflow: hidden;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
     }
-    .registry-btn::before {
-      content: '';
-      position: absolute;
+    .reg-claim-btn:hover { background: var(--bark); transform: translateY(-1px); }
+    .reg-claimed-badge {
+      font-family: var(--font-body);
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--pine-muted);
+      border: 1px solid var(--pine-muted);
+      padding: 6px 12px;
+      border-radius: var(--radius);
+    }
+    /* claim modal */
+    .reg-modal-backdrop {
+      display: none;
+      position: fixed;
       inset: 0;
-      background: var(--bark);
-      transform: translateX(-100%);
-      transition: transform .3s ease;
+      background: rgba(58,46,38,.45);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
     }
-    .registry-btn:hover { transform: translateY(-2px); }
-    .registry-btn:hover::before { transform: translateX(0); }
-    .registry-btn span { position: relative; z-index: 1; }
-
+    .reg-modal-backdrop.open { display: flex; }
+    .reg-modal {
+      background: var(--snow);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 16px 48px rgba(45,74,62,.18);
+    }
+    .reg-modal h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--bark);
+      margin-bottom: 6px;
+    }
+    .reg-modal p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: .95rem;
+      color: var(--bark-light);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .reg-modal input {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--bark);
+      background: var(--parchment);
+      border: 1px solid var(--parchment-dk);
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color .2s;
+      margin-bottom: 8px;
+    }
+    .reg-modal input:focus { border-color: var(--pine-muted); }
+    .reg-modal input.error { border-color: #b5746a; }
+    .reg-modal-error {
+      font-family: var(--font-body);
+      font-size: .72rem;
+      color: #b5746a;
+      min-height: 18px;
+      margin-bottom: 16px;
+      letter-spacing: .04em;
+    }
+    .reg-modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+    .reg-modal-cancel {
+      font-family: var(--font-body);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--bark-light);
+      background: none;
+      border: 1px solid var(--parchment-dk);
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+    .reg-modal-cancel:hover { border-color: var(--bark-light); }
+    .reg-modal-confirm {
+      font-family: var(--font-body);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--snow);
+      background: var(--pine);
+      border: none;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .reg-modal-confirm:hover { background: var(--bark); }
+    .reg-modal-confirm:disabled { opacity: .5; cursor: default; }
+    .reg-loading {
+      text-align: center;
+      padding: 80px 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--bark-light);
+    }
     .registry-note {
       margin-top: 32px;
       font-family: var(--font-body);
@@ -1278,17 +1422,27 @@
 
 <!-- ═══ REGISTRY ══════════════════════════════════════════════ -->
 <div id="pane-registry" class="pane">
-  <div class="registry-wrap">
-    <div class="registry-card">
-      <span class="reg-icon">🤍</span>
-      <h1>Our Registry</h1>
-      <p>
-        The wedding is in a year! Check back later.
-      </p>
+  <div class="page-header">
+    <h1>Registry</h1>
+    <p>If you'd like to give a gift, we're grateful for anything on this list.</p>
+  </div>
 
-      <!-- <a class="registry-btn" href="https://www.myregistry.com/wedding-registry/paxton-scott-and-mary-fetter-stanford-ca/5414501" target="_blank" rel="noopener">
-        <span>View Our Registry</span>
-      </a> -->
+  <div class="registry-wrap">
+    <div id="registry-loading" class="reg-loading">Loading registry…</div>
+    <div id="registry-grid" class="registry-grid" style="display:none"></div>
+  </div>
+
+  <!-- claim modal -->
+  <div id="reg-modal-backdrop" class="reg-modal-backdrop" role="dialog" aria-modal="true">
+    <div class="reg-modal">
+      <h3 id="reg-modal-item-name"></h3>
+      <p>Enter your name to mark this item as purchased. This helps Paxton &amp; Mary avoid duplicates.</p>
+      <input id="reg-modal-name" type="text" placeholder="Your name" autocomplete="name" />
+      <div id="reg-modal-error" class="reg-modal-error"></div>
+      <div class="reg-modal-actions">
+        <button class="reg-modal-cancel" id="reg-modal-cancel">Cancel</button>
+        <button class="reg-modal-confirm" id="reg-modal-confirm">Mark as Purchased</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1779,6 +1933,115 @@
   });
 
   document.getElementById('rsvp-again-btn').addEventListener('click', rsvpReset);
+
+  // ─── Registry ────────────────────────────────────────────────
+  let registryLoaded = false;
+  let pendingClaimId = null;
+
+  function loadRegistry() {
+    if (registryLoaded) return;
+    fetch(`${RSVP_SCRIPT_URL}?action=registryList`)
+      .then(r => r.json())
+      .then(data => {
+        registryLoaded = true;
+        document.getElementById('registry-loading').style.display = 'none';
+        const grid = document.getElementById('registry-grid');
+        grid.style.display = '';
+        if (!data.items || data.items.length === 0) {
+          grid.innerHTML = '<p style="font-family:var(--font-serif);font-style:italic;color:var(--bark-light);text-align:center;padding:60px 0">Check back soon — items are being added.</p>';
+          return;
+        }
+        grid.innerHTML = data.items.map(item => `
+          <div class="reg-item${item.purchased ? ' purchased' : ''}" id="reg-item-${item.id}">
+            <span class="reg-store">${item.store || ''}</span>
+            <span class="reg-name">${item.name}</span>
+            ${item.description ? `<span class="reg-desc">${item.description}</span>` : ''}
+            ${item.price ? `<span class="reg-price">${item.price}</span>` : ''}
+            <div class="reg-actions">
+              ${item.url ? `<a class="reg-view-btn" href="${item.url}" target="_blank" rel="noopener">View Item</a>` : ''}
+              ${item.purchased
+                ? `<span class="reg-claimed-badge">Claimed</span>`
+                : `<button class="reg-claim-btn" onclick="openClaimModal('${item.id}', ${JSON.stringify(item.name)})">I Purchased This</button>`}
+            </div>
+          </div>`).join('');
+      })
+      .catch(() => {
+        document.getElementById('registry-loading').textContent = 'Unable to load registry. Please try again later.';
+      });
+  }
+
+  function openClaimModal(id, name) {
+    pendingClaimId = id;
+    document.getElementById('reg-modal-item-name').textContent = name;
+    document.getElementById('reg-modal-name').value = '';
+    document.getElementById('reg-modal-name').classList.remove('error');
+    document.getElementById('reg-modal-error').textContent = '';
+    document.getElementById('reg-modal-confirm').disabled = false;
+    document.getElementById('reg-modal-confirm').textContent = 'Mark as Purchased';
+    document.getElementById('reg-modal-backdrop').classList.add('open');
+    setTimeout(() => document.getElementById('reg-modal-name').focus(), 50);
+  }
+
+  function closeClaimModal() {
+    document.getElementById('reg-modal-backdrop').classList.remove('open');
+    pendingClaimId = null;
+  }
+
+  document.getElementById('reg-modal-cancel').addEventListener('click', closeClaimModal);
+  document.getElementById('reg-modal-backdrop').addEventListener('click', e => {
+    if (e.target === document.getElementById('reg-modal-backdrop')) closeClaimModal();
+  });
+  document.getElementById('reg-modal-name').addEventListener('keydown', e => {
+    if (e.key === 'Enter') confirmClaim();
+  });
+
+  document.getElementById('reg-modal-confirm').addEventListener('click', confirmClaim);
+
+  function confirmClaim() {
+    const nameVal = document.getElementById('reg-modal-name').value.trim();
+    const nameInput = document.getElementById('reg-modal-name');
+    const errorEl = document.getElementById('reg-modal-error');
+    if (!nameVal) {
+      nameInput.classList.add('error');
+      errorEl.textContent = 'Please enter your name.';
+      return;
+    }
+    nameInput.classList.remove('error');
+    errorEl.textContent = '';
+    const btn = document.getElementById('reg-modal-confirm');
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+    fetch(`${RSVP_SCRIPT_URL}?action=markPurchased&itemId=${encodeURIComponent(pendingClaimId)}&purchasedBy=${encodeURIComponent(nameVal)}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          const el = document.getElementById('reg-item-' + pendingClaimId);
+          if (el) {
+            el.classList.add('purchased');
+            const claimBtn = el.querySelector('.reg-claim-btn');
+            if (claimBtn) claimBtn.replaceWith(Object.assign(document.createElement('span'), { className: 'reg-claimed-badge', textContent: 'Claimed' }));
+          }
+          closeClaimModal();
+        } else {
+          errorEl.textContent = data.error || 'Something went wrong. Please try again.';
+          btn.disabled = false;
+          btn.textContent = 'Mark as Purchased';
+        }
+      })
+      .catch(() => {
+        errorEl.textContent = 'Network error. Please try again.';
+        btn.disabled = false;
+        btn.textContent = 'Mark as Purchased';
+      });
+  }
+
+  // Load registry when tab is opened
+  const origShowTab = showTab;
+  function showTab(tab) {
+    origShowTab(tab);
+    if (tab === 'registry') loadRegistry();
+    return false;
+  }
 </script>
 
 </body>

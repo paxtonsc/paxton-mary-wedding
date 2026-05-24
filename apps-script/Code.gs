@@ -1,10 +1,14 @@
 // ── SETUP ──────────────────────────────────────────────────────
-// 1. Create a Google Sheet with these two tabs: "GuestList", "RSVPs"
+// 1. Create a Google Sheet with these tabs: "GuestList", "RSVPs", "Registry"
 // 2. GuestList columns (row 1 = headers):
 //      A: GuestID  B: GroupID  C: FirstName  D: LastName  E: Type
 //    Type values: primary | plus-one | child
-// 3. Replace SHEET_ID below with your sheet's ID (from its URL)
-// 4. Deploy: Extensions → Apps Script → Deploy → New deployment
+// 3. Registry sheet columns (row 1 = headers):
+//      A: ID  B: Name  C: Description  D: Price  E: Store  F: URL
+//      G: Purchased  H: PurchasedBy
+//    Purchased values: TRUE / FALSE (or blank = not purchased)
+// 4. Replace SHEET_ID below with your sheet's ID (from its URL)
+// 5. Deploy: Extensions → Apps Script → Deploy → New deployment
 //      Type: Web app · Execute as: Me · Who has access: Anyone
 //    Copy the deployment URL and paste into index.html as RSVP_SCRIPT_URL
 //
@@ -23,6 +27,10 @@ function doGet(e) {
       result = lookup(params.lastName, params.firstInitial);
     } else if (params.action === 'rsvp') {
       result = submitRSVP(params);
+    } else if (params.action === 'registryList') {
+      result = getRegistryList();
+    } else if (params.action === 'markPurchased') {
+      result = markPurchased(params.itemId, params.purchasedBy);
     } else {
       result = { error: 'Unknown action' };
     }
@@ -169,4 +177,54 @@ function submitRSVP(params) {
   });
 
   return { success: true };
+}
+
+function getRegistryList() {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  const sheet = ss.getSheetByName('Registry');
+  if (!sheet) return { items: [] };
+
+  const data = sheet.getDataRange().getValues();
+  if (data.length < 2) return { items: [] };
+
+  // Columns: 0=ID  1=Name  2=Description  3=Price  4=Store  5=URL  6=Purchased  7=PurchasedBy
+  const items = [];
+  for (let i = 1; i < data.length; i++) {
+    const r = data[i];
+    if (!r[0] || !r[1]) continue;
+    items.push({
+      id:          String(r[0]),
+      name:        String(r[1]),
+      description: String(r[2] || ''),
+      price:       String(r[3] || ''),
+      store:       String(r[4] || ''),
+      url:         String(r[5] || ''),
+      purchased:   r[6] === true || String(r[6]).toLowerCase() === 'true',
+      purchasedBy: String(r[7] || '')
+    });
+  }
+  return { items };
+}
+
+function markPurchased(itemId, purchasedBy) {
+  if (!itemId || !purchasedBy) {
+    return { success: false, error: 'Missing required fields' };
+  }
+
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  const sheet = ss.getSheetByName('Registry');
+  if (!sheet) return { success: false, error: 'Registry sheet not found' };
+
+  const data = sheet.getDataRange().getValues();
+  for (let i = 1; i < data.length; i++) {
+    if (String(data[i][0]) === String(itemId)) {
+      if (data[i][6] === true || String(data[i][6]).toLowerCase() === 'true') {
+        return { success: false, error: 'This item has already been claimed.' };
+      }
+      sheet.getRange(i + 1, 7).setValue(true);
+      sheet.getRange(i + 1, 8).setValue(purchasedBy);
+      return { success: true };
+    }
+  }
+  return { success: false, error: 'Item not found' };
 }
