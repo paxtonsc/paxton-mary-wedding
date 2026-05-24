@@ -1267,7 +1267,7 @@
         <div class="rsvp-success">
           <span class="check">✓</span>
           <h2>You're all set</h2>
-          <p>Thank you for responding! We can't wait to celebrate with you.<br>A confirmation will be sent to your email.</p>
+          <p>Thank you for responding! We can't wait to celebrate with you.</p>
           <button class="rsvp-btn" id="rsvp-again-btn" style="max-width:240px;margin:28px auto 0">RSVP for Another Guest</button>
         </div>
       </div>
@@ -1485,9 +1485,12 @@
     });
 
     const meta = document.getElementById('rsvp-status-meta');
-    meta.textContent = latestDate
-      ? `RSVP submitted on ${latestDate}${latestEmail ? ' · ' + latestEmail : ''}`
-      : '';
+    if (latestDate) {
+      const formatted = new Date(latestDate + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      meta.textContent = `RSVP submitted on ${formatted}`;
+    } else {
+      meta.textContent = '';
+    }
 
     group.members.forEach(m => {
       const r = existingRsvps[m.guestId];
@@ -1747,7 +1750,7 @@
           if (isEdit) {
             doneMsg.textContent = "Your RSVP has been updated. See you on June 19th!";
           } else {
-            doneMsg.innerHTML = "Thank you for responding! We can't wait to celebrate with you.<br>A confirmation will be sent to your email.";
+            doneMsg.innerHTML = "Thank you for responding! We can't wait to celebrate with you.";
           }
           rsvpShowStep('rsvp-step-done');
         } else {
