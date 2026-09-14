@@ -544,73 +544,124 @@
     .hotel-card a:hover { color: var(--pine); border-color: var(--pine-muted); }
 
     /* ─── REGISTRY TAB ───────────────────────────────────────── */
-    .registry-wrap {
-      min-height: calc(100vh - var(--nav-h) - 200px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 24px;
-    }
-    .registry-card {
-      text-align: center;
-      max-width: 520px;
-      width: 100%;
-    }
-    .registry-card .reg-icon {
-      font-size: 2.4rem;
-      margin-bottom: 20px;
-      display: block;
-    }
-    .registry-card h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      font-weight: 300;
-      color: var(--bark);
-      line-height: 1.15;
-      margin-bottom: 16px;
-    }
-    .registry-card p {
+    .registry-loading {
       font-family: var(--font-serif);
       font-style: italic;
-      font-size: 1.05rem;
       color: var(--bark-light);
-      line-height: 1.75;
+      font-size: .95rem;
+    }
+
+    .registry-thankyou {
+      text-align: center;
+      background: var(--snow);
+      border: 1px solid var(--parchment-dk);
+      border-left: 3px solid var(--pine-mid);
+      border-radius: var(--radius);
+      padding: 24px;
       margin-bottom: 40px;
     }
-    .registry-btn {
+    .registry-thankyou .check {
+      font-size: 2rem;
+      color: var(--pine);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .registry-thankyou p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--bark);
+    }
+
+    .registry-funds-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+    .fund-card {
+      background: var(--snow);
+      border: 1px solid var(--parchment-dk);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+    }
+    .fund-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--bark);
+      margin-bottom: 6px;
+    }
+    .fund-card .fund-desc {
+      font-size: .88rem;
+      color: var(--bark-light);
+      margin-bottom: 16px;
+    }
+    .fund-progress-track {
+      height: 6px;
+      background: var(--parchment-dk);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .fund-progress-fill { height: 100%; background: var(--pine-mid); }
+    .fund-progress-label {
+      font-size: .67rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--pine-muted);
+      margin-bottom: 20px;
+    }
+    .fund-actions { display: flex; flex-direction: column; gap: 10px; }
+    .fund-actions a.rsvp-btn { text-align: center; text-decoration: none; }
+    .fund-actions .fund-btn-venmo { background: #3d95ce; }
+    .fund-actions .fund-btn-venmo:hover { background: #2c7bb0; }
+
+    .fund-log-toggle {
+      display: block;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: .66rem;
+      letter-spacing: .06em;
+      color: var(--pine-muted);
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 2px;
+    }
+    .fund-log-form {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--parchment-dk);
+    }
+    .fund-log-form.open { display: flex; }
+
+    .item-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .item-claim-form {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .item-claim-form.open { display: flex; }
+    .item-claimed-badge {
       display: inline-block;
       font-family: var(--font-body);
-      font-size: .68rem;
+      font-size: .66rem;
       font-weight: 600;
-      letter-spacing: .25em;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      color: var(--snow);
-      background: var(--pine);
-      padding: 16px 40px;
-      border-radius: var(--radius);
-      transition: background .25s, transform .2s;
-      position: relative;
-      overflow: hidden;
-    }
-    .registry-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--bark);
-      transform: translateX(-100%);
-      transition: transform .3s ease;
-    }
-    .registry-btn:hover { transform: translateY(-2px); }
-    .registry-btn:hover::before { transform: translateX(0); }
-    .registry-btn span { position: relative; z-index: 1; }
-
-    .registry-note {
-      margin-top: 32px;
-      font-family: var(--font-body);
-      font-size: .7rem;
-      font-weight: 400;
-      letter-spacing: .1em;
-      color: var(--pine-muted);
+      background: rgba(45, 74, 62, .1);
+      color: var(--pine);
+      padding: 5px 12px;
+      border-radius: 20px;
     }
 
 
@@ -1279,18 +1330,37 @@
 
 <!-- ═══ REGISTRY ══════════════════════════════════════════════ -->
 <div id="pane-registry" class="pane">
-  <div class="registry-wrap">
-    <div class="registry-card">
-      <span class="reg-icon">🤍</span>
-      <h1>Our Registry</h1>
-      <p>
-        The wedding is in a year! Check back later.
-      </p>
+  <div class="page-header">
+    <h1>Registry</h1>
+    <p>Your presence is the greatest gift — but if you'd like to give more, here's how.</p>
+  </div>
 
-      <!-- <a class="registry-btn" href="https://www.myregistry.com/wedding-registry/paxton-scott-and-mary-fetter-stanford-ca/5414501" target="_blank" rel="noopener">
-        <span>View Our Registry</span>
-      </a> -->
+  <div class="content-wrap">
+
+    <div class="registry-thankyou" id="registry-thankyou" hidden>
+      <span class="check">✓</span>
+      <p>Thank you so much for your gift — it means the world to us!</p>
     </div>
+
+    <div class="travel-section" style="margin-bottom:56px">
+      <span class="section-label">Contribute to a fund</span>
+      <div class="registry-funds-grid" id="registry-funds-grid">
+        <p class="registry-loading">Loading…</p>
+      </div>
+    </div>
+
+    <div class="travel-section">
+      <span class="section-label">Or choose a gift</span>
+      <div class="hotel-cards" id="registry-items-grid">
+        <p class="registry-loading">Loading…</p>
+      </div>
+    </div>
+
+    <div class="info-block" style="margin-top:48px">
+      <p><strong>Prefer to send a check?</strong> We're happy to accept those too — just mail it to:</p>
+      <p>Paxton Scott &amp; Mary Fetter<br>904 Mears Ct<br>Stanford, CA 94305</p>
+    </div>
+
   </div>
 </div>
 
@@ -1335,6 +1405,7 @@
     document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
     document.getElementById('pane-' + tab).classList.add('active');
     document.getElementById('nav-' + tab).classList.add('active');
+    if (tab === 'registry') loadRegistry();
     return false;
   }
 
@@ -1369,7 +1440,7 @@
 
   // ─── RSVP ─────────────────────────────────────────────────────
   // Replace with your deployed Apps Script URL after setup
-  const RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxfUzmOrsNUJqK_zVaSshp4Krmye-MLsKyV5mPoiqwllp3RBBwLxeXEdVwLxlaSp6_r/exec';
+  const RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxn0IMZlAEpRIisu1FttroaV313Ix6PuN3gc2Ex3ablwq8pGf9qwpr1Glg6MFaghfYD/exec';
 
   let rsvpGroups = [];
   let activeGroupId = null;
@@ -1780,6 +1851,225 @@
   });
 
   document.getElementById('rsvp-again-btn').addEventListener('click', rsvpReset);
+
+  // ─── Registry ─────────────────────────────────────────────────
+  const REGISTRY_SCRIPT_URL = RSVP_SCRIPT_URL; // same Apps Script deployment
+
+  // Replace with your Stripe Payment Link ("Customer chooses price", with
+  // custom fields "fund", "your_name", "message" — see apps-script/Code.gs)
+  const STRIPE_PAYMENT_LINK_URL = 'https://buy.stripe.com/28EcN46jN8gZ7X986W2Fa00';
+  // Replace with your Venmo @handle
+  const VENMO_HANDLE = 'paxton_scott';
+
+  let registryLoaded = false;
+
+  function loadRegistry() {
+    if (registryLoaded) return;
+    registryLoaded = true;
+    fetchRegistry();
+  }
+
+  function fetchRegistry() {
+    fetch(`${REGISTRY_SCRIPT_URL}?action=registry`)
+      .then(r => r.json())
+      .then(data => {
+        renderFunds(data.funds || []);
+        renderItems(data.items || []);
+      })
+      .catch(() => {
+        document.getElementById('registry-funds-grid').innerHTML = '<p class="registry-loading">Something went wrong loading the registry.</p>';
+        document.getElementById('registry-items-grid').innerHTML = '';
+      });
+  }
+
+  function money(n) {
+    return '$' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
+  }
+
+  function renderFunds(funds) {
+    const grid = document.getElementById('registry-funds-grid');
+    if (funds.length === 0) {
+      grid.innerHTML = '<p class="registry-loading">No funds yet — check back soon.</p>';
+      return;
+    }
+    grid.innerHTML = '';
+
+    funds.forEach(f => {
+      const pct = f.goal ? Math.min(100, Math.round((f.raised / f.goal) * 100)) : null;
+      const card = document.createElement('div');
+      card.className = 'fund-card';
+      card.innerHTML = `
+        <h3>${f.name}</h3>
+        <p class="fund-desc">${f.description || ''}</p>
+        ${f.goal ? `
+          <div class="fund-progress-track"><div class="fund-progress-fill" style="width:${pct}%"></div></div>
+          <p class="fund-progress-label">${money(f.raised)} raised of ${money(f.goal)}</p>
+        ` : ''}
+        <div class="fund-actions">
+          <a class="rsvp-btn" href="${STRIPE_PAYMENT_LINK_URL}" target="_blank" rel="noopener">Give by Card</a>
+          <a class="rsvp-btn fund-btn-venmo" href="https://venmo.com/u/${encodeURIComponent(VENMO_HANDLE)}" target="_blank" rel="noopener">Give on Venmo</a>
+          <span class="fund-log-toggle">Sent a Venmo gift? Let us know →</span>
+          <div class="fund-log-form">
+            <input class="rsvp-input" placeholder="Your name" data-field="name" />
+            <input class="rsvp-input" placeholder="Amount" type="number" min="1" data-field="amount" />
+            <input class="rsvp-input" placeholder="Message (optional)" data-field="message" />
+            <button class="rsvp-btn" data-fund-name="${f.name}">Submit</button>
+            <p class="rsvp-error" data-role="log-error"></p>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+
+      const toggle = card.querySelector('.fund-log-toggle');
+      const form = card.querySelector('.fund-log-form');
+      toggle.addEventListener('click', () => form.classList.toggle('open'));
+
+      card.querySelector('.fund-log-form button').addEventListener('click', e => submitGiftLog(e.target, form));
+    });
+  }
+
+  function submitGiftLog(btn, form) {
+    const fundName = btn.dataset.fundName;
+    const name = form.querySelector('[data-field="name"]').value.trim();
+    const amount = form.querySelector('[data-field="amount"]').value.trim();
+    const message = form.querySelector('[data-field="message"]').value.trim();
+    const errorEl = form.querySelector('[data-role="log-error"]');
+    errorEl.textContent = '';
+
+    if (!name || !amount || Number(amount) <= 0) {
+      errorEl.textContent = 'Please enter your name and an amount.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    const url = `${REGISTRY_SCRIPT_URL}?action=logGift` +
+      `&name=${encodeURIComponent(name)}` +
+      `&amount=${encodeURIComponent(amount)}` +
+      `&fund=${encodeURIComponent(fundName)}` +
+      `&message=${encodeURIComponent(message)}`;
+
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          form.innerHTML = '<p style="font-family:var(--font-serif);font-style:italic;color:var(--pine);font-size:.9rem">Thank you! 🤍</p>';
+          // Delay the refresh so the guest sees the thank-you before totals re-render
+          setTimeout(() => { registryLoaded = false; fetchRegistry(); }, 2500);
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Submit';
+          errorEl.textContent = data.error || 'Something went wrong.';
+        }
+      })
+      .catch(() => {
+        btn.disabled = false;
+        btn.textContent = 'Submit';
+        errorEl.textContent = 'Something went wrong — please try again.';
+      });
+  }
+
+  function renderItems(items) {
+    const grid = document.getElementById('registry-items-grid');
+    if (items.length === 0) {
+      grid.innerHTML = '<p class="registry-loading">No items yet — check back soon.</p>';
+      return;
+    }
+    grid.innerHTML = '';
+
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'hotel-card';
+      card.innerHTML = `
+        <h3>${item.name}</h3>
+        ${item.price ? `<p class="distance">${money(item.price)}</p>` : ''}
+        <p>${item.description || ''}</p>
+        <div class="item-actions">
+          ${item.link ? `<a href="${item.link}" target="_blank" rel="noopener">View Item</a>` : ''}
+          ${item.claimed
+            ? '<span class="item-claimed-badge">Claimed — thank you!</span>'
+            : `
+              <button class="rsvp-btn" data-action="start-claim">I'll Get This</button>
+              <div class="item-claim-form">
+                <input class="rsvp-input" placeholder="Your name" data-field="name" />
+                <button class="rsvp-btn" data-action="confirm-claim" data-item-id="${item.itemId}">Confirm</button>
+                <p class="rsvp-error" data-role="claim-error"></p>
+              </div>
+            `}
+        </div>
+      `;
+      grid.appendChild(card);
+
+      if (!item.claimed) {
+        const startBtn = card.querySelector('[data-action="start-claim"]');
+        const form = card.querySelector('.item-claim-form');
+        const confirmBtn = card.querySelector('[data-action="confirm-claim"]');
+
+        startBtn.addEventListener('click', () => {
+          startBtn.style.display = 'none';
+          form.classList.add('open');
+        });
+
+        confirmBtn.addEventListener('click', () => claimRegistryItem(confirmBtn, form, card));
+      }
+    });
+  }
+
+  function claimRegistryItem(btn, form, card) {
+    const name = form.querySelector('[data-field="name"]').value.trim();
+    const errorEl = form.querySelector('[data-role="claim-error"]');
+    errorEl.textContent = '';
+
+    if (!name) {
+      errorEl.textContent = 'Please enter your name.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Claiming…';
+
+    const url = `${REGISTRY_SCRIPT_URL}?action=claimItem&itemId=${encodeURIComponent(btn.dataset.itemId)}&name=${encodeURIComponent(name)}`;
+
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          card.querySelector('.item-actions').outerHTML = '<span class="item-claimed-badge">Claimed — thank you!</span>';
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Confirm';
+          errorEl.textContent = data.error || 'Something went wrong.';
+        }
+      })
+      .catch(() => {
+        btn.disabled = false;
+        btn.textContent = 'Confirm';
+        errorEl.textContent = 'Something went wrong — please try again.';
+      });
+  }
+
+  // If we've been redirected back from a Stripe payment, confirm and log the gift
+  (function checkStripeReturn() {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('registry_session');
+    if (!sessionId) return;
+
+    showTab('registry');
+
+    fetch(`${REGISTRY_SCRIPT_URL}?action=confirmStripeGift&sessionId=${encodeURIComponent(sessionId)}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          document.getElementById('registry-thankyou').hidden = false;
+          registryLoaded = false;
+          fetchRegistry();
+        }
+      })
+      .finally(() => {
+        window.history.replaceState({}, '', window.location.pathname);
+      });
+  })();
 </script>
 
 </body>
