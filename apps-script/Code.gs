@@ -275,19 +275,27 @@ function claimItem(itemId, name, email) {
   const row = Number(itemId);
   if (!Number.isInteger(row) || row < 2) return { success: false, error: 'Item not found' };
 
-  const ss = SpreadsheetApp.openById(SHEET_ID);
-  const sheet = ss.getSheetByName('RegistryItems');
-  if (!sheet) return { success: false, error: 'RegistryItems sheet not found' };
-  if (row > sheet.getLastRow()) return { success: false, error: 'Item not found' };
+  // Guard the read-check-write below so two guests can't both claim the
+  // same item if they click at the exact same moment.
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+    const sheet = ss.getSheetByName('RegistryItems');
+    if (!sheet) return { success: false, error: 'RegistryItems sheet not found' };
+    if (row > sheet.getLastRow()) return { success: false, error: 'Item not found' };
 
-  const rowValues = sheet.getRange(row, 1, 1, 5).getValues()[0]; // A..E
-  if (!rowValues[0]) return { success: false, error: 'Item not found' };
-  if (String(rowValues[4]).toLowerCase() === 'true') {
-    return { success: false, error: 'Someone already claimed this gift.' };
+    const rowValues = sheet.getRange(row, 1, 1, 5).getValues()[0]; // A..E
+    if (!rowValues[0]) return { success: false, error: 'Item not found' };
+    if (String(rowValues[4]).toLowerCase() === 'true') {
+      return { success: false, error: 'Someone already claimed this gift.' };
+    }
+
+    sheet.getRange(row, 5, 1, 4).setValues([[true, name, email || '', new Date().toISOString()]]);
+    return { success: true };
+  } finally {
+    lock.releaseLock();
   }
-
-  sheet.getRange(row, 5, 1, 4).setValues([[true, name, email || '', new Date().toISOString()]]);
-  return { success: true };
 }
 
 function appendGift(method, name, email, amount, fund, message, stripeSessionId) {

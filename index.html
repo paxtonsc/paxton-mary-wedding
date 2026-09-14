@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
   <title>Paxton Scott & Mary Fetter — June 19, 2027</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1192,7 +1193,7 @@
           <p>Welcome dinner for those in town Friday evening! More details to come.</p>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-time">Friday June 18th· [6:00 PM]</div>
+        <div class="tl-time">Friday June 18th · 6:00 PM</div>
       </div>
 
       <div class="tl-item">
@@ -1202,7 +1203,7 @@
           <p>Morning run or walk around the dish.</p>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-time">Saturday June 19th· [9:00 AM]</div>
+        <div class="tl-time">Saturday June 19th · 9:00 AM</div>
       </div>
 
       <div class="tl-item">
@@ -1212,7 +1213,7 @@
           <p>The ceremony begins promptly at 3:00 PM. Guests should be seated by 2:45 PM. Semi-formal attire.</p>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-time">Saturday June 19th · [3:00 PM]</div>
+        <div class="tl-time">Saturday June 19th · 3:00 PM</div>
       </div>
 
       <div class="tl-item">
@@ -1222,7 +1223,7 @@
           <p>After the ceremony, we will make the 10 minute walk over to the Faculty Club for the reception. Dinner will be served at 5:30 PM. The reception will conclude at 8:30 PM.</p>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-time">Saturday June 19th · [4:30 PM]</div>
+        <div class="tl-time">Saturday June 19th · 4:30 PM</div>
       </div>
 
 
@@ -1233,7 +1234,7 @@
           <p>A casual brunch the morning after the wedding. For those interested, there will also be pre-brunch outdoor activities. </p>
         </div>
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-time">Sunday June 20th · [10:00 AM]</div>
+        <div class="tl-time">Sunday June 20th · 10:00 AM</div>
       </div>
 
     </div>
@@ -1407,8 +1408,9 @@
   gateBtn.addEventListener('click', tryUnlock);
   gateInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
 
-  // Update the time below to match your actual ceremony start time
-  const WEDDING_DATE = new Date('2027-06-19T15:30:00');
+  // Pinned to Pacific time (Stanford, CA) so the countdown is accurate
+  // for guests viewing from other timezones — PDT is UTC-7 in June.
+  const WEDDING_DATE = new Date('2027-06-19T15:00:00-07:00');
 
   function showTab(tab) {
     document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
@@ -1463,6 +1465,17 @@
     { key: 'ceremony',      label: 'Ceremony & Reception', sub: 'Sat, June 19' },
     { key: 'sundayBrunch',  label: 'Sunday Brunch',        sub: 'Sun, June 20' }
   ];
+
+  // Guest-supplied text (e.g. plus-one names) gets echoed back into the
+  // page later, so escape it before it ever goes into innerHTML/attributes.
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 
   function eventBadge(val) {
     if (val === true)  return ['yes', 'Attending'];
@@ -1602,7 +1615,7 @@
       row.style.flexDirection = 'column';
       row.style.alignItems = 'stretch';
       row.innerHTML = `
-        <span class="rsvp-status-name">${displayName}</span>
+        <span class="rsvp-status-name">${escapeHtml(displayName)}</span>
         <div class="rsvp-status-events">${eventsHtml}</div>`;
       list.appendChild(row);
     });
@@ -1702,17 +1715,17 @@
       row.style.flexDirection = 'column';
       row.style.alignItems = 'stretch';
       row.innerHTML = `
-        <span class="rsvp-guest-name" style="margin-bottom:6px">${displayName}</span>
+        <span class="rsvp-guest-name" style="margin-bottom:6px">${escapeHtml(displayName)}</span>
         ${eventsToggles}
         ${m.unnamed ? `
         <div class="rsvp-plusone-name-wrap${nameSlotOpen ? ' open' : ''}" id="name-wrap-${m.guestId}">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <input class="rsvp-input" id="plusone-first-${m.guestId}" type="text" placeholder="First name" value="${savedFirst}" autocomplete="given-name" />
-            <input class="rsvp-input" id="plusone-last-${m.guestId}"  type="text" placeholder="Last name"  value="${savedLast}"  autocomplete="family-name" />
+            <input class="rsvp-input" id="plusone-first-${m.guestId}" type="text" placeholder="First name" value="${escapeHtml(savedFirst)}" autocomplete="given-name" />
+            <input class="rsvp-input" id="plusone-last-${m.guestId}"  type="text" placeholder="Last name"  value="${escapeHtml(savedLast)}"  autocomplete="family-name" />
           </div>
         </div>` : needsLastName ? `
         <div style="margin-top:10px">
-          <input class="rsvp-input" id="plusone-last-${m.guestId}" type="text" placeholder="Last name (required)" value="${savedLast}" autocomplete="family-name" />
+          <input class="rsvp-input" id="plusone-last-${m.guestId}" type="text" placeholder="Last name (required)" value="${escapeHtml(savedLast)}" autocomplete="family-name" />
         </div>` : ''}`;
 
       row.querySelectorAll('.rsvp-toggle button').forEach(btn => {
