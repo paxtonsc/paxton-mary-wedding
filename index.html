@@ -501,6 +501,14 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 32px rgba(45,74,62,.09);
     }
+    .item-photo {
+      width: calc(100% + 48px);
+      margin: -28px -24px 20px;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
     .hotel-card h3 {
       font-family: var(--font-display);
       font-size: 1.35rem;
@@ -1345,7 +1353,6 @@
     <div class="info-block" style="margin-bottom:56px">
       <p><strong>Please send all physical gifts to:</strong></p>
       <p>Paxton Scott &amp; Mary Fetter<br>904 Mears Ct<br>Stanford, CA 94305</p>
-      <p>Feel free to also give us a check on the day of the wedding!</p>
     </div>
 
     <div class="travel-section" style="margin-bottom:56px">
@@ -1357,6 +1364,7 @@
 
     <div class="travel-section">
       <span class="section-label">Or contribute to a fund</span>
+      <p style="font-family:var(--font-serif);font-style:italic;color:var(--bark-light);font-size:.9rem;margin-bottom:20px">Feel free to also give us a check on the day of the wedding!</p>
       <div class="registry-funds-grid" id="registry-funds-grid">
         <p class="registry-loading">Loading…</p>
       </div>
@@ -1441,7 +1449,7 @@
 
   // ─── RSVP ─────────────────────────────────────────────────────
   // Replace with your deployed Apps Script URL after setup
-  const RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxn0IMZlAEpRIisu1FttroaV313Ix6PuN3gc2Ex3ablwq8pGf9qwpr1Glg6MFaghfYD/exec';
+  const RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxeJ5b1HDo3ap0QWtIPxZuas07Ohl82dqrY01ZM5Eg1iKaRWdO0x-gGrY0NRHDzgFOc/exec';
 
   let rsvpGroups = [];
   let activeGroupId = null;
@@ -1983,6 +1991,7 @@
       const card = document.createElement('div');
       card.className = 'hotel-card';
       card.innerHTML = `
+        ${item.photoUrl ? `<img class="item-photo" src="${item.photoUrl}" alt="${item.name}" loading="lazy" />` : ''}
         <h3>${item.name}</h3>
         ${item.price ? `<p class="distance">${money(item.price)}</p>` : ''}
         <p>${item.description || ''}</p>

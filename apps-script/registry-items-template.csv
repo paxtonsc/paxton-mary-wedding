@@ -1,3 +1,3 @@
-Name,Description,Link,Price,Claimed,ClaimedBy,ClaimedEmail,ClaimedDate
-Sample Gift Item 1,Replace with a real gift and a link to buy it,https://example.com,75,FALSE,,,
-Sample Gift Item 2,Replace with a real gift and a link to buy it,https://example.com,120,FALSE,,,
+Name,Description,Link,Price,Claimed,ClaimedBy,ClaimedEmail,ClaimedDate,PhotoUrl
+Sample Gift Item 1,Replace with a real gift and a link to buy it,https://example.com,75,FALSE,,,,
+Sample Gift Item 2,Replace with a real gift and a link to buy it,https://example.com,120,FALSE,,,,

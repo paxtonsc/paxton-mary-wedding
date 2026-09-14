@@ -20,6 +20,8 @@
 // number automatically, so just add rows and leave Claimed as FALSE:
 //   A=Name  B=Description  C=Link  D=Price
 //   E=Claimed(TRUE/FALSE)  F=ClaimedBy  G=ClaimedEmail  H=ClaimedDate
+//   I=PhotoUrl (optional — a direct image URL, e.g. a public Google Drive
+//     or Photos link, or an image hosted in this repo's images/ folder)
 //
 // RegistryFunds columns (row 1 = headers, you fill in the rows by hand):
 //   A=Name  B=Description  C=Goal (optional, numeric)
@@ -214,7 +216,7 @@ function getRegistry() {
   const ss = SpreadsheetApp.openById(SHEET_ID);
 
   // Columns: 0=Name 1=Description 2=Link 3=Price
-  //          4=Claimed 5=ClaimedBy 6=ClaimedEmail 7=ClaimedDate
+  //          4=Claimed 5=ClaimedBy 6=ClaimedEmail 7=ClaimedDate 8=PhotoUrl
   // No ID column — each item's spreadsheet row number is its ID.
   const items = [];
   const itemsSheet = ss.getSheetByName('RegistryItems');
@@ -229,7 +231,8 @@ function getRegistry() {
         description: String(row[1]),
         link: String(row[2]),
         price: row[3] === '' ? null : Number(row[3]),
-        claimed: String(row[4]).toLowerCase() === 'true'
+        claimed: String(row[4]).toLowerCase() === 'true',
+        photoUrl: String(row[8] || '')
       });
     }
   }
