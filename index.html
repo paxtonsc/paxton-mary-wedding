@@ -700,6 +700,62 @@
     }
 
 
+    /* ─── PHOTOS TAB ─────────────────────────────────────────── */
+    .photo-content-wrap {
+      max-width: 1100px;
+      padding-bottom: 100px;
+    }
+
+    .photo-year {
+      margin-bottom: 56px;
+    }
+    .photo-year-label {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      color: var(--bark);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .photo-year .divider {
+      margin: 0 auto 40px;
+    }
+
+    .photo-event {
+      margin-bottom: 32px;
+    }
+    .photo-event-caption {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: .95rem;
+      color: var(--bark-light);
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .photo-event-caption:empty { display: none; margin: 0; }
+
+    .photo-event-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+    .photo-img {
+      display: block;
+      flex: 0 1 320px;
+      width: 320px;
+      height: 320px;
+      object-fit: cover;
+      background: var(--snow);
+      border: 1px solid var(--parchment-dk);
+      padding: 6px;
+      box-shadow: 0 2px 10px rgba(45,74,62,.06);
+    }
+    @media (max-width: 460px) {
+      .photo-img { flex-basis: 100%; width: 100%; }
+    }
+
+
     /* ─── RSVP TAB ───────────────────────────────────────────── */
     .rsvp-wrap {
       max-width: 600px;
@@ -1016,8 +1072,17 @@
     @media (max-width: 600px) {
       .hero-text { padding: 28px 24px 32px; }
       .nav-monogram { display: none; }
-      .nav-inner { padding: 0 12px; }
-      .nav-links { gap: 12px; }
+      .nav-inner { padding: 0 12px; justify-content: flex-start; }
+      .nav-links {
+        gap: 12px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        min-width: 0;
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links li { flex-shrink: 0; }
       .nav-links a { letter-spacing: .12em; }
 
       .timeline::before { left: 20px; }
@@ -1156,6 +1221,7 @@
       <li><a href="#" onclick="showTab('travel')"   id="nav-travel">Travel</a></li>
       <li><a href="#" onclick="showTab('rsvp')"     id="nav-rsvp">RSVP</a></li>
       <li><a href="#" onclick="showTab('registry')" id="nav-registry">Registry</a></li>
+      <li><a href="#" onclick="showTab('photos')"   id="nav-photos">Photos</a></li>
     </ul>
   </div>
 </nav>
@@ -1395,6 +1461,476 @@
       <div class="registry-funds-grid" id="registry-funds-grid">
         <p class="registry-loading">Loading…</p>
       </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ PHOTOS ════════════════════════════════════════════════ -->
+<div id="pane-photos" class="pane">
+  <div class="page-header">
+    <h1>Photos</h1>
+    <p>A few of our favorite moments along the way.</p>
+  </div>
+
+  <div class="content-wrap photo-content-wrap">
+    <div class="photo-year">
+      <h2 class="photo-year-label">2022</h2>
+      <div class="divider"><span class="divider-icon">✦</span></div>
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2022-lost-coast-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-lost-coast-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-lost-coast-03.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-lost-coast-04.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-lost-coast-05.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2022-big-sur-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2022-marin-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2022-whitney-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2022-img2384-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2022-fall-runs-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-fall-runs-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-fall-runs-03.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-fall-runs-04.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-fall-runs-05.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-fall-runs-06.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2022-half-dome-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-half-dome-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-half-dome-03.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-half-dome-04.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2022-grand-canyon-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-grand-canyon-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-grand-canyon-03.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-grand-canyon-04.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-grand-canyon-05.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2022-grand-canyon-06.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="photo-year">
+      <h2 class="photo-year-label">2023</h2>
+      <div class="divider"><span class="divider-icon">✦</span></div>
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-pt-reyes-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-pt-reyes-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-tahoe-march-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-tahoe-march-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-tahoe-march-03.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-tahoe-march-04.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-coronado-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-coronado-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-odh-triathlon-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-run-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-run-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-pali-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-palo-alto-june10-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-palo-alto-june10-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-tahoe-june-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-tahoe-june-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-tahoe-june-03.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-tahoe-june-04.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-tahoe-june-05.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-palo-alto-june19-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-palo-alto-june19-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-peru-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-peru-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-peru-03.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-peru-04.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-peru-05.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-peru-06.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-peru-07.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-peru-08.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-peru-09.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-peru-10.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-peru-11.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-durango-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-durango-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-durango-03.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-weminuche-1-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-weminuche-1-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-four-pass-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-four-pass-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-drive-to-seattle-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-weminuche-2-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-img2464-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-snow-backpack-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-snow-backpack-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-bend-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2023-bend-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-seattle-room-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2023-snoqualmie-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="photo-year">
+      <h2 class="photo-year-label">2024</h2>
+      <div class="divider"><span class="divider-icon">✦</span></div>
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-img2901-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-rainier-beach-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2024-rainier-beach-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-helens-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-ben-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2024-ben-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-kate-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-islands-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2024-islands-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-backpack-may-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-ptarmigan-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2024-ptarmigan-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2024-ptarmigan-03.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-beach-dinner-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-daniels-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-mineral-creek-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2024-mineral-creek-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2024-mineral-creek-03.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2024-violet-wedding-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2024-violet-wedding-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="photo-year">
+      <h2 class="photo-year-label">2025</h2>
+      <div class="divider"><span class="divider-icon">✦</span></div>
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2025-ad59-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2025-img5387-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2025-img0056-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2025-img0060-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2025-0309-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2025-0309-02.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2025-img2603-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2025-img1058-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2025-europe-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2025-europe-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2025-europe-03.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2025-europe-04.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2025-europe-05.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2025-europe-06.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2025-dsc00308-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2025-img5633-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2025-white-rim-01.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="photo-year">
+      <h2 class="photo-year-label">2026</h2>
+      <div class="divider"><span class="divider-icon">✦</span></div>
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2026-rogers-pass-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2026-rogers-pass-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2026-rogers-pass-03.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
+      <div class="photo-event">
+        <p class="photo-event-caption"></p>
+        <div class="photo-event-grid">
+          <img class="photo-img" src="images/photos/2026-dsc06-01.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2026-dsc06-02.jpg" loading="lazy" alt="" />
+          <img class="photo-img" src="images/photos/2026-dsc06-03.jpg" loading="lazy" alt="" />
+        </div>
+      </div>
+
     </div>
 
   </div>
