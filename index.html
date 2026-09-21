@@ -502,14 +502,30 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 32px rgba(45,74,62,.09);
     }
+    .item-photo-frame {
+      position: relative;
+      border: 1px solid rgba(45, 74, 62, .22);
+      padding: 6px;
+      margin-bottom: 20px;
+      background: var(--parchment);
+    }
+    .item-photo-frame::before,
+    .item-photo-frame::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-color: var(--pine);
+      border-style: solid;
+      pointer-events: none;
+    }
+    .item-photo-frame::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+    .item-photo-frame::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
     .item-photo {
-      width: calc(100% + 48px);
-      max-width: calc(100% + 48px);
-      margin: -28px -24px 20px;
+      width: 100%;
       aspect-ratio: 4 / 3;
       object-fit: cover;
       display: block;
-      border-radius: var(--radius) var(--radius) 0 0;
     }
     .hotel-card h3 {
       font-family: var(--font-display);
@@ -613,7 +629,7 @@
       overflow: hidden;
       margin-bottom: 8px;
     }
-    .fund-progress-fill { height: 100%; background: var(--pine-mid); }
+    .fund-progress-fill { height: 100%; background: var(--amber); }
     .fund-progress-label {
       font-size: .67rem;
       font-weight: 600;
@@ -624,8 +640,16 @@
     }
     .fund-actions { display: flex; flex-direction: column; gap: 10px; }
     .fund-actions a.rsvp-btn { text-align: center; text-decoration: none; }
-    .fund-actions .fund-btn-venmo { background: #3d95ce; }
-    .fund-actions .fund-btn-venmo:hover { background: #2c7bb0; }
+    .fund-actions .fund-btn-venmo {
+      background: transparent;
+      color: var(--pine);
+      border: 1px solid var(--pine);
+    }
+    .fund-actions .fund-btn-venmo:hover { background: var(--parchment-dk); }
+    .fund-actions .fund-btn-venmo:focus-visible {
+      outline: 2px solid var(--pine);
+      outline-offset: 3px;
+    }
 
     .fund-log-toggle {
       display: block;
@@ -668,8 +692,9 @@
       font-weight: 600;
       letter-spacing: .12em;
       text-transform: uppercase;
-      background: rgba(45, 74, 62, .1);
-      color: var(--pine);
+      background: var(--parchment);
+      border: 1px solid var(--amber-light);
+      color: var(--bark);
       padding: 5px 12px;
       border-radius: 20px;
     }
@@ -1365,7 +1390,7 @@
     </div>
 
     <div class="travel-section">
-      <span class="section-label">Or contribute to a fund</span>
+      <span class="section-label">Give to a Fund</span>
       <p style="font-family:var(--font-serif);font-style:italic;color:var(--bark-light);font-size:.9rem;margin-bottom:20px">Feel free to also give us a check on the day of the wedding!</p>
       <div class="registry-funds-grid" id="registry-funds-grid">
         <p class="registry-loading">Loading…</p>
@@ -2005,7 +2030,7 @@
       const card = document.createElement('div');
       card.className = 'hotel-card';
       card.innerHTML = `
-        ${item.photoUrl ? `<img class="item-photo" src="${item.photoUrl}" alt="${item.name}" loading="lazy" />` : ''}
+        ${item.photoUrl ? `<div class="item-photo-frame"><img class="item-photo" src="${item.photoUrl}" alt="${item.name}" loading="lazy" /></div>` : ''}
         <h3>${item.name}</h3>
         ${item.price ? `<p class="distance">${money(item.price)}</p>` : ''}
         <p>${item.description || ''}</p>
