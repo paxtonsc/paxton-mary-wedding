@@ -364,10 +364,6 @@
     "asset": "2025-img5387-01.jpg"
   },
   {
-    "source": "IMG_5633.jpeg",
-    "asset": "2025-img5633-01.jpg"
-  },
-  {
     "source": "2025-11-250639WhiteRim018ShaferTrail.jpg",
     "asset": "2025-white-rim-01.jpg"
   },
@@ -466,5 +462,25 @@
     "source": "IMG_1128.jpeg",
     "sourceFolder": "WeddingWebsite2",
     "asset": "2025-desolation-03.jpg"
+  },
+  {
+    "source": "06_11_tahoe_wedding-3.jpg",
+    "sourceFolder": "WeddingWebsite2",
+    "asset": "2026-tahoe-wedding-02.jpg"
+  },
+  {
+    "source": "06_11_tahoe_wedding-10.jpg",
+    "sourceFolder": "WeddingWebsite2",
+    "asset": "2026-tahoe-wedding-03.jpg"
+  },
+  {
+    "source": "DSC05852.JPG",
+    "sourceFolder": "WeddingWebsite2",
+    "asset": "2026-june-16-02.jpg"
+  },
+  {
+    "source": "Photos.zip/FullSizeRender.heic",
+    "sourceFolder": "WeddingWebsite2",
+    "asset": "2026-june-20-01.jpg"
   }
 ]
