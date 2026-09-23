@@ -328,10 +328,6 @@
     "asset": "2025-europe-01.jpg"
   },
   {
-    "source": "2025-Europe-018.jpg",
-    "asset": "2025-europe-02.jpg"
-  },
-  {
     "source": "2025-Europe-056.jpg",
     "asset": "2025-europe-03.jpg"
   },
@@ -440,5 +436,35 @@
     "source": "Photos (8).zip/IMG_7371.heic",
     "sourceFolder": "WeddingWebsite2",
     "asset": "2022-big-sur-03.jpg"
+  },
+  {
+    "source": "IMG_2477.HEIC",
+    "sourceFolder": "WeddingWebsite2",
+    "asset": "2022-odh-outing-01.jpg"
+  },
+  {
+    "source": "IMG_2498.HEIC",
+    "sourceFolder": "WeddingWebsite2",
+    "asset": "2022-odh-room-01.jpg"
+  },
+  {
+    "source": "IMG_2537.HEIC",
+    "sourceFolder": "WeddingWebsite2",
+    "asset": "2022-fall-runs-07.jpg"
+  },
+  {
+    "source": "IMG_1089.jpeg",
+    "sourceFolder": "WeddingWebsite2",
+    "asset": "2025-desolation-01.jpg"
+  },
+  {
+    "source": "IMG_1112.jpeg",
+    "sourceFolder": "WeddingWebsite2",
+    "asset": "2025-desolation-02.jpg"
+  },
+  {
+    "source": "IMG_1128.jpeg",
+    "sourceFolder": "WeddingWebsite2",
+    "asset": "2025-desolation-03.jpg"
   }
 ]
